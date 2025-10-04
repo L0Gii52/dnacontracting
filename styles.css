@@ -62,7 +62,7 @@ body {
 }
 
 .logo-dna {
-    color: #22c55e;
+    color: #00aad9;
     font-weight: 800;
     font-size: 32px;
     line-height: 1;
@@ -243,7 +243,7 @@ body {
 }
 
 .btn.btn-primary.cta-button:hover {
-    background: #ea580c !important;
+    background: #00aad9 !important;
     transform: none;
     box-shadow: none;
 }
@@ -271,7 +271,7 @@ body {
 
 /* Section Styles */
 section {
-    padding: 120px 0;
+    padding: 500px 0;
 }
 
 .section-title {
@@ -323,7 +323,7 @@ section {
 }
 
 .feature-icon {
-    color: #22c55e;
+    color: #00aad9;
     font-size: 1.5rem;
     margin-top: 0.2rem;
     flex-shrink: 0;
@@ -366,8 +366,8 @@ section {
 
 .services-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: repeat(3, 1fr);
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(2, 1fr);
     gap: 0.5rem;
     margin-top: 3rem;
     position: relative;
@@ -393,9 +393,16 @@ section {
     color: #f97316;
 }
 
+.services-cta {
+    text-align: center;
+    margin-top: 3rem;
+    position: relative;
+    z-index: 1;
+}
+
 .service-icon {
     font-size: 2rem;
-    color: #22c55e;
+    color: #00aad9;
     margin-bottom: 1rem;
 }
 
@@ -445,7 +452,7 @@ section {
 
 .why-icon {
     font-size: 3rem;
-    color: #22c55e;
+    color: #00aad9;
     margin-bottom: 1.5rem;
     position: relative;
     z-index: 2;
@@ -514,7 +521,7 @@ section {
 
 .program-icon {
     font-size: 3rem;
-    color: #22c55e;
+    color: #00aad9;
     margin-bottom: 1.5rem;
     transition: all 0.3s ease;
 }
@@ -680,7 +687,7 @@ section {
     left: 0;
     right: 0;
     height: 4px;
-    background: linear-gradient(90deg, #22c55e 0%, #f97316 50%, #22c55e 100%);
+    background: linear-gradient(90deg, #00aad9 0%, #f97316 50%, #00aad9 100%);
     background-size: 200% 100%;
     animation: gradient-shift 3s ease-in-out infinite;
 }
@@ -927,7 +934,7 @@ section {
 .form-group.success input,
 .form-group.success select,
 .form-group.success textarea {
-    border-color: #22c55e;
+    border-color: #00aad9;
     background: linear-gradient(145deg, #1d4c1d 0%, #374151 100%);
     box-shadow: 
         0 0 0 4px rgba(34, 197, 94, 0.15),
@@ -952,7 +959,7 @@ section {
 }
 
 .success-message {
-    color: #22c55e;
+    color: #00aad9;
     font-size: 0.85rem;
     margin-top: 0.5rem;
     display: flex;
@@ -1071,7 +1078,7 @@ section {
     right: 30px;
     width: 50px;
     height: 50px;
-    background: #f97316;
+    background: #00aad9;
     color: white;
     border: none;
     border-radius: 30px;
@@ -1080,15 +1087,15 @@ section {
     align-items: center;
     justify-content: center;
     font-size: 18px;
-    box-shadow: 0 4px 12px rgba(249, 115, 22, 0.3);
+    box-shadow: 0 4px 12px rgba(0, 170, 217, 0.3);
     transition: all 0.3s ease;
     z-index: 1000;
 }
 
 .back-to-top:hover {
-    background: #ea580c;
+    background: #0088b8;
     transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(249, 115, 22, 0.4);
+    box-shadow: 0 6px 20px rgba(0, 170, 217, 0.4);
 }
 
 .back-to-top.show {
@@ -1172,7 +1179,7 @@ section {
     }
     
     section {
-        padding: 52px 0;
+        padding: 300px 0;
     }
     
     .hero-title {
@@ -1193,7 +1200,7 @@ section {
     }
     
     .services-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(2, 1fr);
         gap: 1rem;
     }
     
@@ -1321,6 +1328,12 @@ section {
         font-size: 2rem;
     }
     
+    .services-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    }
+    
     .container {
         padding: 0 15px;
     }
@@ -1330,7 +1343,7 @@ section {
     }
     
     section {
-        padding: 35px 0;
+        padding: 45px 0;
     }
     
     .nav-links {
