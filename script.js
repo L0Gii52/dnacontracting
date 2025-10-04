@@ -51,71 +51,327 @@ document.addEventListener('DOMContentLoaded', function() {
     // Initial call to set active link
     updateActiveNavLink();
 
-    // Handle form submission
+    // Enhanced form validation and submission
     const contactForm = document.querySelector('.contact-form');
     if (contactForm) {
+        // Real-time validation
+        const formInputs = contactForm.querySelectorAll('input, select, textarea');
+        formInputs.forEach(input => {
+            input.addEventListener('blur', function() {
+                validateField(this);
+            });
+            
+            input.addEventListener('input', function() {
+                clearFieldError(this);
+            });
+        });
+
+        // Form submission with enhanced validation
         contactForm.addEventListener('submit', function(e) {
             e.preventDefault();
             
-            // Get form data
-            const formData = new FormData(this);
-            const name = formData.get('name');
-            const phone = formData.get('phone');
-            const email = formData.get('email');
-            const projectType = formData.get('project-type');
-            const details = formData.get('details');
-            const consent = formData.get('consent');
+            // Clear previous errors
+            clearAllErrors();
             
-            // Basic validation
-            if (!name || !phone || !email || !projectType || !details || !consent) {
-                alert('Please fill in all required fields and agree to be contacted.');
+            // Validate all fields
+            let isValid = true;
+            formInputs.forEach(input => {
+                if (!validateField(input)) {
+                    isValid = false;
+                }
+            });
+            
+            if (!isValid) {
+                showFormError('Please correct the errors above before submitting.');
                 return;
             }
             
-            // Email validation
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!emailRegex.test(email)) {
-                alert('Please enter a valid email address.');
-                return;
-            }
-            
-            // Phone validation (basic)
-            const phoneRegex = /^[\d\s\(\)\-\+]+$/;
-            if (!phoneRegex.test(phone)) {
-                alert('Please enter a valid phone number.');
-                return;
-            }
-            
-            // Simulate form submission
-            const submitButton = this.querySelector('button[type="submit"]');
-            const originalText = submitButton.textContent;
-            
-            submitButton.textContent = 'Submitting...';
-            submitButton.disabled = true;
+            // Show loading state
+            showFormLoading();
             
             // Simulate API call
             setTimeout(() => {
-                alert('Thank you for your submission! We will contact you within 24 hours.');
-                this.reset();
-                submitButton.textContent = originalText;
-                submitButton.disabled = false;
+                hideFormLoading();
+                showFormSuccess('Thank you for your submission! We will contact you within 24 hours.');
+                
+                // Track conversion events
+                if (typeof gtag !== 'undefined') {
+                    gtag('event', 'form_submit', {
+                        event_category: 'Contact',
+                        event_label: 'Quote Request',
+                        value: 1
+                    });
+                }
+                
+                if (typeof fbq !== 'undefined') {
+                    fbq('track', 'Lead', {
+                        content_name: 'Quote Request',
+                        content_category: 'Contact Form'
+                    });
+                }
+                
+                contactForm.reset();
+                clearAllErrors();
             }, 2000);
         });
     }
 
-    // Handle file upload display
+    // Validation functions
+    function validateField(field) {
+        const value = field.value.trim();
+        const fieldName = field.name;
+        let isValid = true;
+        let errorMessage = '';
+
+        // Required field validation
+        if (field.hasAttribute('required') && !value) {
+            errorMessage = `${getFieldLabel(fieldName)} is required.`;
+            isValid = false;
+        }
+
+        // Email validation
+        if (fieldName === 'email' && value) {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(value)) {
+                errorMessage = 'Please enter a valid email address.';
+                isValid = false;
+            }
+        }
+
+        // Phone validation
+        if (fieldName === 'phone' && value) {
+            const phoneRegex = /^[\d\s\(\)\-\+]+$/;
+            const digitsOnly = value.replace(/\D/g, '');
+            if (!phoneRegex.test(value) || digitsOnly.length < 10) {
+                errorMessage = 'Please enter a valid phone number.';
+                isValid = false;
+            }
+        }
+
+        // Name validation
+        if (fieldName === 'name' && value && value.length < 2) {
+            errorMessage = 'Name must be at least 2 characters long.';
+            isValid = false;
+        }
+
+        // Details validation
+        if (fieldName === 'details' && value && value.length < 10) {
+            errorMessage = 'Please provide more details about your project (at least 10 characters).';
+            isValid = false;
+        }
+
+        // Update field appearance and show error
+        if (!isValid) {
+            showFieldError(field, errorMessage);
+        } else {
+            showFieldSuccess(field);
+        }
+
+        return isValid;
+    }
+
+    function getFieldLabel(fieldName) {
+        const labels = {
+            'name': 'Full Name',
+            'phone': 'Phone',
+            'email': 'Email',
+            'project-type': 'Project Type',
+            'details': 'Project Details'
+        };
+        return labels[fieldName] || fieldName;
+    }
+
+    function showFieldError(field, message) {
+        const formGroup = field.closest('.form-group');
+        formGroup.classList.add('error');
+        formGroup.classList.remove('success');
+        
+        // Update ARIA attributes
+        field.setAttribute('aria-invalid', 'true');
+        field.setAttribute('aria-describedby', field.id + '-error');
+        
+        // Remove existing error message
+        const existingError = formGroup.querySelector('.error-message');
+        if (existingError) {
+            existingError.remove();
+        }
+        
+        // Add new error message
+        const errorDiv = document.createElement('div');
+        errorDiv.className = 'error-message show';
+        errorDiv.id = field.id + '-error';
+        errorDiv.setAttribute('role', 'alert');
+        errorDiv.innerHTML = `<i class="fas fa-exclamation-circle" aria-hidden="true"></i> ${message}`;
+        formGroup.appendChild(errorDiv);
+    }
+
+    function showFieldSuccess(field) {
+        const formGroup = field.closest('.form-group');
+        formGroup.classList.add('success');
+        formGroup.classList.remove('error');
+        
+        // Update ARIA attributes
+        field.setAttribute('aria-invalid', 'false');
+        
+        // Remove existing error message
+        const existingError = formGroup.querySelector('.error-message');
+        if (existingError) {
+            existingError.remove();
+        }
+    }
+
+    function clearFieldError(field) {
+        const formGroup = field.closest('.form-group');
+        formGroup.classList.remove('error');
+        
+        // Update ARIA attributes
+        field.setAttribute('aria-invalid', 'false');
+        
+        const errorMessage = formGroup.querySelector('.error-message');
+        if (errorMessage) {
+            errorMessage.classList.remove('show');
+            setTimeout(() => errorMessage.remove(), 300);
+        }
+    }
+
+    function clearAllErrors() {
+        const errorMessages = contactForm.querySelectorAll('.error-message');
+        errorMessages.forEach(msg => {
+            msg.classList.remove('show');
+            setTimeout(() => msg.remove(), 300);
+        });
+        
+        const formGroups = contactForm.querySelectorAll('.form-group');
+        formGroups.forEach(group => {
+            group.classList.remove('error', 'success');
+        });
+    }
+
+    function showFormError(message) {
+        const existingError = contactForm.querySelector('.form-error');
+        if (existingError) {
+            existingError.remove();
+        }
+        
+        const errorDiv = document.createElement('div');
+        errorDiv.className = 'form-error error-message show';
+        errorDiv.innerHTML = `<i class="fas fa-exclamation-triangle"></i> ${message}`;
+        contactForm.insertBefore(errorDiv, contactForm.querySelector('.form-buttons'));
+    }
+
+    function showFormSuccess(message) {
+        const existingSuccess = contactForm.querySelector('.form-success');
+        if (existingSuccess) {
+            existingSuccess.remove();
+        }
+        
+        const successDiv = document.createElement('div');
+        successDiv.className = 'form-success success-message show';
+        successDiv.innerHTML = `<i class="fas fa-check-circle"></i> ${message}`;
+        contactForm.insertBefore(successDiv, contactForm.querySelector('.form-buttons'));
+        
+        // Auto-hide after 5 seconds
+        setTimeout(() => {
+            successDiv.classList.remove('show');
+            setTimeout(() => successDiv.remove(), 300);
+        }, 5000);
+    }
+
+    function showFormLoading() {
+        contactForm.classList.add('form-loading');
+        const submitButton = contactForm.querySelector('button[type="submit"]');
+        submitButton.disabled = true;
+        submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Submitting...';
+    }
+
+    function hideFormLoading() {
+        contactForm.classList.remove('form-loading');
+        const submitButton = contactForm.querySelector('button[type="submit"]');
+        submitButton.disabled = false;
+        submitButton.innerHTML = 'Get a Quote';
+    }
+
+    // Enhanced file upload display
     const fileInput = document.querySelector('input[type="file"]');
     const fileText = document.querySelector('.file-text');
+    const fileUpload = document.querySelector('.file-upload');
     
-    if (fileInput && fileText) {
+    if (fileInput && fileText && fileUpload) {
         fileInput.addEventListener('change', function() {
             if (this.files.length > 0) {
-                const fileNames = Array.from(this.files).map(file => file.name).join(', ');
-                fileText.textContent = `${this.files.length} file(s) selected: ${fileNames}`;
+                const files = Array.from(this.files);
+                const totalSize = files.reduce((sum, file) => sum + file.size, 0);
+                const maxSize = 10 * 1024 * 1024; // 10MB limit
+                
+                if (totalSize > maxSize) {
+                    showFieldError(fileInput, 'Total file size exceeds 10MB limit.');
+                    this.value = '';
+                    fileText.textContent = 'No file chosen';
+                    return;
+                }
+                
+                // Validate file types
+                const allowedTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp', 'video/mp4', 'video/avi', 'video/mov'];
+                const invalidFiles = files.filter(file => !allowedTypes.includes(file.type));
+                
+                if (invalidFiles.length > 0) {
+                    showFieldError(fileInput, 'Please upload only images (JPG, PNG, GIF, WebP) or videos (MP4, AVI, MOV).');
+                    this.value = '';
+                    fileText.textContent = 'No file chosen';
+                    return;
+                }
+                
+                // Show success state
+                showFieldSuccess(fileInput);
+                
+                // Display file information
+                if (files.length === 1) {
+                    const file = files[0];
+                    const size = formatFileSize(file.size);
+                    fileText.innerHTML = `<i class="fas fa-file"></i> ${file.name} (${size})`;
+                } else {
+                    const totalSizeFormatted = formatFileSize(totalSize);
+                    fileText.innerHTML = `<i class="fas fa-files"></i> ${files.length} files selected (${totalSizeFormatted})`;
+                }
+                
+                // Add visual feedback
+                fileUpload.style.borderColor = '#22c55e';
+                fileUpload.style.background = 'linear-gradient(145deg, #1d4c1d 0%, #2d3748 100%)';
             } else {
                 fileText.textContent = 'No file chosen';
+                fileUpload.style.borderColor = 'transparent';
+                fileUpload.style.background = 'linear-gradient(145deg, #374151 0%, #2d3748 100%)';
+                clearFieldError(fileInput);
             }
         });
+        
+        // Drag and drop functionality
+        fileUpload.addEventListener('dragover', function(e) {
+            e.preventDefault();
+            this.style.borderColor = '#f97316';
+            this.style.background = 'linear-gradient(145deg, #3d4852 0%, #374151 100%)';
+        });
+        
+        fileUpload.addEventListener('dragleave', function(e) {
+            e.preventDefault();
+            this.style.borderColor = 'transparent';
+            this.style.background = 'linear-gradient(145deg, #374151 0%, #2d3748 100%)';
+        });
+        
+        fileUpload.addEventListener('drop', function(e) {
+            e.preventDefault();
+            const files = e.dataTransfer.files;
+            fileInput.files = files;
+            fileInput.dispatchEvent(new Event('change'));
+        });
+    }
+    
+    function formatFileSize(bytes) {
+        if (bytes === 0) return '0 Bytes';
+        const k = 1024;
+        const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+        const i = Math.floor(Math.log(bytes) / Math.log(k));
+        return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
     }
 
     // Handle "Jump on a call" button
@@ -158,6 +414,22 @@ document.addEventListener('DOMContentLoaded', function() {
     const phoneButton = document.querySelector('.btn-secondary');
     if (phoneButton && phoneButton.textContent.includes('Call')) {
         phoneButton.addEventListener('click', function() {
+            // Track phone call clicks
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'phone_call', {
+                    event_category: 'Contact',
+                    event_label: 'Phone Call Click',
+                    value: 1
+                });
+            }
+            
+            if (typeof fbq !== 'undefined') {
+                fbq('track', 'Contact', {
+                    content_name: 'Phone Call',
+                    content_category: 'Contact'
+                });
+            }
+            
             window.location.href = 'tel:+15598707485';
         });
     }
@@ -268,6 +540,42 @@ document.addEventListener('DOMContentLoaded', function() {
                 value = value.replace(/(\d{3})(\d{3})/, '($1) $2');
             }
             this.value = value;
+        });
+    }
+    
+    // Hamburger menu functionality
+    const hamburger = document.getElementById('hamburger');
+    const mobileNavLinks = document.getElementById('nav-links');
+    
+    if (hamburger && mobileNavLinks) {
+        hamburger.addEventListener('click', function() {
+            hamburger.classList.toggle('active');
+            mobileNavLinks.classList.toggle('active');
+        });
+        
+        // Close menu when clicking outside
+        document.addEventListener('click', function(e) {
+            if (!hamburger.contains(e.target) && !mobileNavLinks.contains(e.target)) {
+                hamburger.classList.remove('active');
+                mobileNavLinks.classList.remove('active');
+            }
+        });
+        
+        // Close menu on window resize (if screen becomes larger)
+        window.addEventListener('resize', function() {
+            if (window.innerWidth > 768) {
+                hamburger.classList.remove('active');
+                mobileNavLinks.classList.remove('active');
+            }
+        });
+        
+        // Close menu when clicking on nav links
+        const allNavLinks = document.querySelectorAll('.nav-link');
+        allNavLinks.forEach(link => {
+            link.addEventListener('click', function() {
+                hamburger.classList.remove('active');
+                mobileNavLinks.classList.remove('active');
+            });
         });
     }
 });

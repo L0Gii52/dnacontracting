@@ -99,7 +99,7 @@
         "paymentAccepted": "Cash, Check, Credit Card",
         "currenciesAccepted": "USD",
         "openingHours": "Mo-Fr 08:00-17:00",
-        "foundingDate": "2020",
+        "foundingDate": "2012",
         "founder": {
             "@type": "Person",
             "name": "DNA Contracting Founder"
@@ -108,12 +108,14 @@
         "slogan": "Trusted Construction & Remodeling",
         "knowsAbout": [
             "General Contracting",
-            "Electrical Contracting", 
+            "Electrical Contracting",
+            "HVAC Services",
             "Residential Remodeling",
             "Commercial Construction",
             "Kitchen Renovation",
             "Bathroom Remodeling",
             "Electrical Upgrades",
+            "HVAC Installation",
             "Plumbing Services",
             "EV Charger Installation",
             "Building Electrification"
@@ -129,6 +131,12 @@
                 "@type": "EducationalOccupationalCredential", 
                 "credentialCategory": "License",
                 "name": "Electrical Contractor License C-10",
+                "identifier": "1078724"
+            },
+            {
+                "@type": "EducationalOccupationalCredential",
+                "credentialCategory": "License",
+                "name": "HVAC Contractor License C-20",
                 "identifier": "1078724"
             }
         ],
@@ -149,17 +157,78 @@
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
     
+    <!-- Google Analytics 4 -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'GA_MEASUREMENT_ID', {
+            page_title: 'DNA Contracting - Licensed General & Electrical Contractor',
+            page_location: window.location.href
+        });
+    </script>
+    
+    <!-- Google Search Console Verification -->
+    <meta name="google-site-verification" content="YOUR_GOOGLE_VERIFICATION_CODE">
+    
+    <!-- Bing Webmaster Tools Verification -->
+    <meta name="msvalidate.01" content="YOUR_BING_VERIFICATION_CODE">
+    
+    <!-- Facebook Pixel -->
+    <script>
+        !function(f,b,e,v,n,t,s)
+        {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+        n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+        if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+        n.queue=[];t=b.createElement(e);t.async=!0;
+        t.src=v;s=b.getElementsByTagName(e)[0];
+        s.parentNode.insertBefore(t,s)}(window, document,'script',
+        'https://connect.facebook.net/en_US/fbevents.js');
+        fbq('init', 'YOUR_FACEBOOK_PIXEL_ID');
+        fbq('track', 'PageView');
+    </script>
+    <noscript><img height="1" width="1" style="display:none"
+        src="https://www.facebook.com/tr?id=YOUR_FACEBOOK_PIXEL_ID&ev=PageView&noscript=1"
+    /></noscript>
+    
     <!-- Preconnect for performance -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    <link rel="preconnect" href="https://images.unsplash.com">
     
     <!-- DNS Prefetch -->
     <link rel="dns-prefetch" href="//images.unsplash.com">
+    <link rel="dns-prefetch" href="//www.google-analytics.com">
+    <link rel="dns-prefetch" href="//www.googletagmanager.com">
+    <link rel="dns-prefetch" href="//connect.facebook.net">
+    
+    <!-- Performance & SEO Meta Tags -->
+    <meta name="theme-color" content="#111827">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="HandheldFriendly" content="true">
+    <meta name="MobileOptimized" content="width">
+    
+    <!-- Cache Control -->
+    <meta http-equiv="Cache-Control" content="public, max-age=31536000">
+    <meta http-equiv="Expires" content="31536000">
     
     <link rel="stylesheet" href="styles.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="/manifest.json">
+    
+    <!-- Additional Meta Tags for PWA -->
+    <meta name="application-name" content="DNA Contracting">
+    <meta name="apple-mobile-web-app-title" content="DNA Contracting">
+    <meta name="msapplication-TileColor" content="#f97316">
+    <meta name="msapplication-config" content="/browserconfig.xml">
 </head>
 <body>
     <!-- Header -->
@@ -173,7 +242,15 @@
                     </div>
                 </a>
             </div>
-            <ul class="nav-links">
+            
+            <!-- Hamburger Menu Button -->
+            <button class="hamburger" id="hamburger" aria-label="Toggle navigation menu">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </button>
+            
+            <ul class="nav-links" id="nav-links">
                 <li><a href="#home" class="nav-link active">Home</a></li>
                 <li><a href="#about" class="nav-link">About</a></li>
                 <li><a href="#services" class="nav-link">Services</a></li>
@@ -229,10 +306,7 @@
                     </ul>
                 </div>
                 <div class="about-image">
-                    <div class="image-placeholder">
-                        <i class="fas fa-image"></i>
-                        <p>Project Image</p>
-                    </div>
+                    <img src="HVAC Install 2.jpeg" alt="Professional HVAC Installation by DNA Contracting in Central Valley" style="width: 100%; height: 400px; object-fit: cover; border-radius: 20px;">
                 </div>
             </div>
         </div>
@@ -310,6 +384,11 @@
                     <p>Safe, code-compliant <strong>electrical panel upgrades</strong> for future power needs and expansion. Licensed <strong>C-10 electrical contractor</strong>.</p>
                 </div>
                 <div class="service-card">
+                    <i class="fas fa-wind service-icon"></i>
+                    <h3>HVAC Services</h3>
+                    <p>Professional <strong>HVAC installation</strong>, repair, and maintenance services. Licensed <strong>C-20 HVAC contractor</strong> serving the <strong>Central Valley</strong>.</p>
+                </div>
+                <div class="service-card">
                     <i class="fas fa-tint service-icon"></i>
                     <h3>Plumbing Services</h3>
                     <p>Complete <strong>plumbing solutions</strong>, including repairs, installations, and upgrades for residential and commercial properties in the <strong>Central Valley</strong>.</p>
@@ -323,39 +402,61 @@
         </div>
     </section>
 
+    <!-- Programs & Rebates Section -->
+    <section class="programs">
+        <div class="container">
+            <h2 class="section-title center">Energy Programs & Rebates</h2>
+            <p class="section-subtitle center">Take advantage of <strong>energy assistance programs</strong> and <strong>rebate opportunities</strong> to make your project more affordable.</p>
+            <div class="programs-grid">
+                <div class="program-card">
+                    <i class="fas fa-hand-holding-heart program-icon"></i>
+                    <h3>Proteus Energy Assistance Program</h3>
+                    <p>Get help with your energy bills and home improvements through the <strong>Proteus Energy Assistance Program</strong>. We're an approved contractor for this valuable community resource.</p>
+                    <a href="https://www.proteusinc.org/services/energy-division" target="_blank" class="program-link">Learn More About Proteus Program</a>
+                </div>
+                <div class="program-card">
+                    <i class="fas fa-charging-station program-icon"></i>
+                    <h3>SCE EV Charger Rebate Program</h3>
+                    <p>Save money on your <strong>EV charger installation</strong> with Southern California Edison's rebate program. We're a certified contractor and can help you maximize your savings.</p>
+                    <a href="https://evhome.sce.com/contractors" target="_blank" class="program-link">Check SCE Rebate Program</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Projects Section -->
     <section id="projects" class="projects">
         <div class="container">
-            <h2 class="section-title">Featured Construction Projects in Central Valley</h2>
+            <h2 class="section-title center">Featured Construction Projects in Central Valley</h2>
             <div class="projects-grid">
                 <div class="project-card">
                     <div class="project-image">
-                        <img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Modern Kitchen Remodel by DNA Contracting in Visalia">
+                        <img src="HVAC Install.jpeg" alt="HVAC Installation by DNA Contracting in Central Valley">
                     </div>
                 </div>
                 <div class="project-card">
                     <div class="project-image">
-                        <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Commercial Office Space Construction by DNA Contracting">
+                        <img src="HVAC Install 2.jpeg" alt="Professional HVAC Installation Services by DNA Contracting">
                     </div>
                 </div>
                 <div class="project-card">
                     <div class="project-image">
-                        <img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Electrical Panel Upgrade by Licensed C-10 Contractor">
+                        <img src="New EV Charger.jpeg" alt="EV Charger Installation by Licensed C-10 Contractor">
                     </div>
                 </div>
                 <div class="project-card">
                     <div class="project-image">
-                        <img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Retail Store Interior Renovation in Central Valley">
+                        <img src="New EV Charger Installed.jpeg" alt="Completed EV Charger Installation in Central Valley">
                     </div>
                 </div>
                 <div class="project-card">
                     <div class="project-image">
-                        <img src="https://images.unsplash.com/photo-1581578731548-c6a0c3f2f4c4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Residential Exterior Painting Project in Tulare">
+                        <img src="New Main Panel upgrade .jpeg" alt="Electrical Panel Upgrade Project by DNA Contracting">
                     </div>
                 </div>
                 <div class="project-card">
                     <div class="project-image">
-                        <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Commercial Warehouse Lighting Installation in Hanford">
+                        <img src="New Main Panel Upgrade.jpeg" alt="Professional Electrical Panel Upgrade in Visalia">
                     </div>
                 </div>
             </div>
@@ -367,24 +468,26 @@
         <div class="container">
             <h2 class="section-title center">Get a Free Quote from DNA Contracting</h2>
             <p class="section-subtitle center">Tell us about your <strong>construction project</strong> in <strong>Visalia</strong>, <strong>Tulare</strong>, <strong>Hanford</strong>, or the <strong>Central Valley</strong> and we'll get back to you quickly with a transparent estimate.</p>
-            <form class="contact-form">
+            <form class="contact-form" role="form" aria-label="Contact form for project quote">
                 <div class="form-row">
                     <div class="form-group">
-                        <input type="text" id="name" name="name" placeholder="Jane Doe" required>
-                        <label for="name">Full Name</label>
+                        <label for="name">Full Name *</label>
+                        <input type="text" id="name" name="name" placeholder="Jane Doe" required aria-describedby="name-error" aria-invalid="false">
                     </div>
                     <div class="form-group">
-                        <input type="tel" id="phone" name="phone" placeholder="(559) 870-7485" required>
-                        <label for="phone">Phone</label>
+                        <label for="phone">Phone *</label>
+                        <input type="tel" id="phone" name="phone" placeholder="(559) 870-7485" required aria-describedby="phone-error" aria-invalid="false">
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group">
-                        <input type="email" id="email" name="email" placeholder="you@email.com" required>
-                        <label for="email">Email</label>
+                        <label for="email">Email *</label>
+                        <input type="email" id="email" name="email" placeholder="you@email.com" required aria-describedby="email-error" aria-invalid="false">
                     </div>
                     <div class="form-group">
-                        <select id="project-type" name="project-type" required>
+                        <label for="project-type">Project Type *</label>
+                        <select id="project-type" name="project-type" required aria-describedby="project-type-error" aria-invalid="false">
+                            <option value="">Select project type</option>
                             <option value="residential-remodel">Residential Remodel</option>
                             <option value="commercial">Commercial</option>
                             <option value="electrical">Electrical</option>
@@ -392,32 +495,33 @@
                             <option value="roofing">Roofing</option>
                             <option value="other">Other</option>
                         </select>
-                        <label for="project-type">Project Type</label>
                     </div>
                 </div>
                 <div class="form-group">
-                    <div class="file-upload">
-                        <input type="file" id="photos" name="photos" multiple accept="image/*,video/*">
+                    <label for="photos">Upload Photos/Videos (optional)</label>
+                    <div class="file-upload" role="button" tabindex="0" aria-label="File upload area">
+                        <input type="file" id="photos" name="photos" multiple accept="image/*,video/*" aria-describedby="photos-description">
                         <label for="photos" class="file-label">
-                            <i class="fas fa-upload"></i>
+                            <i class="fas fa-upload" aria-hidden="true"></i>
                             Choose File
                         </label>
                         <span class="file-text">No file chosen</span>
                     </div>
-                    <p class="file-description">Upload Photos/Videos (optional)</p>
+                    <p id="photos-description" class="file-description">Upload Photos/Videos (optional) - Max 10MB total, supports JPG, PNG, GIF, WebP, MP4, AVI, MOV</p>
                 </div>
                 <div class="form-group">
-                    <textarea id="details" name="details" placeholder="Tell us about your timeline, scope, and location..." rows="5" required></textarea>
-                    <label for="details">Project Details</label>
+                    <label for="details">Project Details *</label>
+                    <textarea id="details" name="details" placeholder="Tell us about your timeline, scope, and location..." rows="5" required aria-describedby="details-error" aria-invalid="false"></textarea>
                 </div>
                 <div class="form-group checkbox-group">
-                    <input type="checkbox" id="consent" name="consent" required>
-                    <label for="consent">I agree to be contacted about my project.</label>
+                    <input type="checkbox" id="consent" name="consent" required aria-describedby="consent-error" aria-invalid="false">
+                    <label for="consent">I agree to be contacted about my project. *</label>
                 </div>
                 <div class="form-buttons">
-                    <button type="button" class="btn btn-secondary">Call (559) 870-7485</button>
-                    <button type="submit" class="btn btn-primary">Get a Quote</button>
+                    <button type="button" class="btn btn-secondary" aria-label="Call DNA Contracting at (559) 870-7485">Call (559) 870-7485</button>
+                    <button type="submit" class="btn btn-primary" aria-describedby="submit-description">Get a Quote</button>
                 </div>
+                <p id="submit-description" class="sr-only">Submit the form to receive a free quote for your project</p>
             </form>
         </div>
     </section>
@@ -443,6 +547,7 @@
                         <li>Residential Remodeling</li>
                         <li>Commercial Construction</li>
                         <li>Electrical Services</li>
+                        <li>HVAC Services</li>
                         <li>Plumbing Services</li>
                         <li>EV Charger Installation</li>
                     </ul>
