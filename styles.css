@@ -1074,7 +1074,7 @@ section {
     background: #f97316;
     color: white;
     border: none;
-    border-radius: 20px;
+    border-radius: 30px;
     cursor: pointer;
     display: none;
     align-items: center;
@@ -1102,6 +1102,7 @@ section {
         width: 45px;
         height: 45px;
         font-size: 16px;
+        border-radius: 30px;
     }
 }
 
