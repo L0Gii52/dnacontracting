@@ -89,10 +89,38 @@ document.addEventListener('DOMContentLoaded', function() {
             // Show loading state
             showFormLoading();
             
-            // Simulate API call
+            // Prepare form data
+            const formData = new FormData(contactForm);
+            const data = {
+                name: formData.get('name'),
+                email: formData.get('email'),
+                phone: formData.get('phone'),
+                projectType: formData.get('projectType'),
+                details: formData.get('details') || formData.get('message') || '',
+                timestamp: new Date().toISOString(),
+                page: window.location.pathname
+            };
+            
+            // Send form data (using a simple mailto approach for now)
+            const subject = `New Contact Form Submission - ${data.projectType}`;
+            const body = `Name: ${data.name}
+Email: ${data.email}
+Phone: ${data.phone}
+Project Type: ${data.projectType}
+Message: ${data.details}
+Submitted from: ${data.page}
+Timestamp: ${data.timestamp}`;
+            
+            // Create mailto link
+            const mailtoLink = `mailto:vvalencia@dnacontracting-services.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+            
+            // Open email client
+            window.location.href = mailtoLink;
+            
+            // Show success message
             setTimeout(() => {
                 hideFormLoading();
-                showFormSuccess('Thank you for your submission! We will contact you within 24 hours.');
+                showFormSuccess('Thank you for your submission! Your email client should open with a pre-filled message. Please send the email to complete your request.');
                 
                 // Track conversion events
                 if (typeof gtag !== 'undefined') {
@@ -112,7 +140,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 
                 contactForm.reset();
                 clearAllErrors();
-            }, 2000);
+            }, 1000);
         });
     }
 
@@ -578,4 +606,55 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
     }
+    
+    // Dropdown menu functionality
+    const dropdownToggles = document.querySelectorAll('.dropdown-toggle');
+    dropdownToggles.forEach(toggle => {
+        toggle.addEventListener('click', function(e) {
+            e.preventDefault();
+            const dropdown = this.closest('.nav-dropdown');
+            const menu = dropdown.querySelector('.dropdown-menu');
+            
+            // Close other dropdowns
+            document.querySelectorAll('.nav-dropdown').forEach(otherDropdown => {
+                if (otherDropdown !== dropdown) {
+                    otherDropdown.classList.remove('active');
+                }
+            });
+            
+            // Toggle current dropdown
+            dropdown.classList.toggle('active');
+        });
+    });
+    
+    // Handle smooth scrolling to sections when coming from other pages
+    function handleSectionScrolling() {
+        // Check if URL has a hash (like #about, #projects, #services)
+        if (window.location.hash) {
+            const targetId = window.location.hash.substring(1); // Remove the #
+            console.log('Looking for element with ID:', targetId);
+            const targetElement = document.getElementById(targetId);
+            
+            if (targetElement) {
+                console.log('Found target element, scrolling to:', targetId);
+                // Wait for page to load, then scroll to section
+                setTimeout(() => {
+                    targetElement.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }, 100);
+            } else {
+                console.log('Target element not found:', targetId);
+            }
+        }
+    }
+    
+    // Run on page load
+    document.addEventListener('DOMContentLoaded', function() {
+        handleSectionScrolling();
+    });
+    
+    // Also run when hash changes (for single-page navigation)
+    window.addEventListener('hashchange', handleSectionScrolling);
 });

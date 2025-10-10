@@ -45,31 +45,65 @@
     <priority>0.8</priority>
   </url>
 
-  <!-- Service Pages (if you plan to create them) -->
+  <!-- Service Pages -->
   <url>
-    <loc>https://dnacontracting.com/services/residential-remodeling</loc>
+    <loc>https://dnacontracting.com/services/hvac-services.html</loc>
     <lastmod>2025-01-27</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
 
   <url>
-    <loc>https://dnacontracting.com/services/commercial-construction</loc>
+    <loc>https://dnacontracting.com/services/electrical-panel-upgrades.html</loc>
     <lastmod>2025-01-27</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
 
   <url>
-    <loc>https://dnacontracting.com/services/electrical-services</loc>
+    <loc>https://dnacontracting.com/services/commercial-construction.html</loc>
     <lastmod>2025-01-27</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
 
+  <url>
+    <loc>https://dnacontracting.com/services/residential-commercial-remodeling.html</loc>
+    <lastmod>2025-01-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
 
   <url>
-    <loc>https://dnacontracting.com/services/ev-charger-installation</loc>
+    <loc>https://dnacontracting.com/services/kitchen-bathroom-renovations.html</loc>
+    <lastmod>2025-01-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://dnacontracting.com/services/wood-repair-framing.html</loc>
+    <lastmod>2025-01-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://dnacontracting.com/services/ev-charger-installation.html</loc>
+    <lastmod>2025-01-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://dnacontracting.com/services/building-electrification.html</loc>
+    <lastmod>2025-01-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://dnacontracting.com/contact.html</loc>
     <lastmod>2025-01-27</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
@@ -97,13 +131,6 @@
     <priority>0.8</priority>
   </url>
 
-  <!-- Contact Page -->
-  <url>
-    <loc>https://dnacontracting.com/contact</loc>
-    <lastmod>2025-01-27</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-  </url>
 
   <!-- About Page -->
   <url>

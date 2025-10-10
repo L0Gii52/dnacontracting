@@ -1,20 +1,26 @@
 User-agent: *
 Allow: /
 
-# Sitemap location
+# Sitemap
 Sitemap: https://dnacontracting.com/sitemap.xml
 
-# Disallow admin or private directories (if you add them later)
+# Crawl-delay for respectful crawling
+Crawl-delay: 1
+
+# Allow all search engines to crawl everything
+Disallow:
+
+# Block access to admin or sensitive areas (if any)
 # Disallow: /admin/
 # Disallow: /private/
 
-# Allow all search engines to crawl everything
-Allow: /blog/
-Allow: /services/
-Allow: /locations/
-Allow: /images/
-Allow: /css/
-Allow: /js/
-
-# Crawl delay (optional - helps prevent overloading server)
-Crawl-delay: 1
+# Allow specific file types
+Allow: *.css
+Allow: *.js
+Allow: *.jpg
+Allow: *.jpeg
+Allow: *.png
+Allow: *.gif
+Allow: *.webp
+Allow: *.svg
+Allow: *.pdf

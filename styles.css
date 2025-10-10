@@ -5,6 +5,10 @@
     box-sizing: border-box;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 body {
     font-family: 'Inter', sans-serif;
     background: #111827;
@@ -101,6 +105,75 @@ body {
 .nav-link.active {
     background: #f97316;
     color: white;
+}
+
+/* Navigation Dropdown */
+.nav-dropdown {
+    position: relative;
+}
+
+.dropdown-toggle {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.dropdown-toggle i {
+    font-size: 0.8rem;
+    transition: transform 0.3s ease;
+}
+
+.nav-dropdown:hover .dropdown-toggle i {
+    transform: rotate(180deg);
+}
+
+.dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: #1a1f2e;
+    border: 1px solid #2a2f3e;
+    border-radius: 20px;
+    padding: 1rem 0;
+    min-width: 280px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: all 0.3s ease;
+    z-index: 1000;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+}
+
+.nav-dropdown:hover .dropdown-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.nav-dropdown.active .dropdown-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.dropdown-menu li {
+    margin: 0;
+}
+
+.dropdown-menu a {
+    display: block;
+    padding: 0.75rem 1.5rem;
+    color: #cccccc;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    font-size: 0.9rem;
+    border-radius: 0;
+}
+
+.dropdown-menu a:hover {
+    background: #2a2f3e;
+    color: #f97316;
+    padding-left: 2rem;
 }
 
 .cta-button {
@@ -274,6 +347,11 @@ section {
     padding: 500px 0;
 }
 
+/* Ensure proper scrolling to sections */
+section[id] {
+    scroll-margin-top: 80px; /* Account for fixed header */
+}
+
 .section-title {
     font-size: 2.5rem;
     font-weight: 700;
@@ -374,14 +452,6 @@ section {
     z-index: 1;
 }
 
-.service-card {
-    background: #1a1f2e;
-    padding: 2rem;
-    border-radius: 20px;
-    text-align: left;
-    transition: all 0.3s ease;
-    border: 1px solid #2a2f3e;
-}
 
 .service-card:hover {
     transform: translateY(-4px);
@@ -418,6 +488,54 @@ section {
     color: #cccccc;
     line-height: 1.5;
     font-size: 0.9rem;
+    margin-bottom: 1rem;
+}
+
+/* Service Learn More Buttons */
+.service-learn-more {
+    margin-top: auto;
+    padding: 0 !important;
+    font-weight: 500 !important;
+    font-size: 0.9rem !important;
+    border-radius: 0 !important;
+    background: none !important;
+    color: #f97316 !important;
+    text-decoration: none !important;
+    display: inline-block !important;
+    border: none !important;
+    cursor: pointer !important;
+    transition: all 0.3s ease !important;
+    box-shadow: none !important;
+    transform: none !important;
+    width: auto !important;
+    text-align: left !important;
+    align-self: flex-start;
+}
+
+.service-learn-more:hover {
+    background: none !important;
+    transform: none !important;
+    box-shadow: none !important;
+    color: #00aad9 !important;
+    text-decoration: underline !important;
+}
+
+.service-learn-more:focus {
+    outline: 2px solid #f97316 !important;
+    outline-offset: 2px !important;
+}
+
+/* Service Card Adjustments for Learn More Button */
+.service-card {
+    background: #1a1f2e;
+    padding: 2rem;
+    border-radius: 20px;
+    text-align: left;
+    transition: all 0.3s ease;
+    border: 1px solid #2a2f3e;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
 }
 
 /* Why Choose Section */
@@ -1057,6 +1175,16 @@ section {
     color: #9ca3af;
 }
 
+.footer-services a {
+    color: #9ca3af;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.footer-services a:hover {
+    color: #f97316;
+}
+
 .footer-bottom {
     text-align: center;
     padding-top: 2rem;
@@ -1160,6 +1288,41 @@ section {
     
     .nav-link:hover {
         background: rgba(249, 115, 22, 0.1);
+    }
+    
+    /* Mobile Dropdown */
+    .nav-dropdown {
+        position: static;
+    }
+    
+    .dropdown-menu {
+        position: static;
+        opacity: 1;
+        visibility: visible;
+        transform: none;
+        background: transparent;
+        border: none;
+        box-shadow: none;
+        padding: 0;
+        margin-left: 1rem;
+        margin-top: 0.5rem;
+        min-width: auto;
+    }
+    
+    .dropdown-menu a {
+        padding: 0.5rem 0;
+        font-size: 0.85rem;
+        color: #9ca3af;
+    }
+    
+    .dropdown-menu a:hover {
+        color: #f97316;
+        padding-left: 0;
+        background: none;
+    }
+    
+    .nav-dropdown:hover .dropdown-toggle i {
+        transform: none;
     }
     
     .cta-button {
