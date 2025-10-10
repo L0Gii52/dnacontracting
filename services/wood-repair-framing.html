@@ -53,45 +53,325 @@
     <style>
         /* Service Page Specific Styles */
         .hero-description {
-            font-size: 1.2rem;
-            color: #cccccc;
-            margin-top: 1rem;
-            max-width: 700px;
-            line-height: 1.6;
+            font-size: 1.3rem;
+            color: #ffffff;
+            margin-top: 1.5rem;
+            max-width: 800px;
+            line-height: 1.7;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+            animation: fadeInUp 1s ease-out 0.3s both;
         }
         
         .hero-buttons {
             display: flex;
-            gap: 1rem;
-            margin-top: 2rem;
+            gap: 1.5rem;
+            margin-top: 2.5rem;
             flex-wrap: wrap;
+            animation: fadeInUp 1s ease-out 0.6s both;
+        }
+        
+        .hero-buttons .btn {
+            transform: translateY(0);
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .hero-buttons .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+        }
+        
+        .hero-buttons .btn-primary {
+            background: #ffffff;
+            color: #1a1a1a;
+            font-weight: 600;
+        }
+        
+        .hero-buttons .btn-primary:hover {
+            background: #f8f9fa;
+            color: #1a1a1a;
+        }
+        
+        .hero-buttons .btn-secondary {
+            background: transparent;
+            color: #ffffff;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            font-weight: 500;
+        }
+        
+        .hero-buttons .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.5);
+        }
+        
+        /* Floating Elements */
+        .floating-element {
+            position: absolute;
+            opacity: 0.1;
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        .floating-element:nth-child(1) {
+            top: 20%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+        
+        .floating-element:nth-child(2) {
+            top: 60%;
+            right: 15%;
+            animation-delay: 2s;
+        }
+        
+        .floating-element:nth-child(3) {
+            bottom: 30%;
+            left: 20%;
+            animation-delay: 4s;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* Keyframe Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px) rotate(0deg);
+            }
+            50% {
+                transform: translateY(-20px) rotate(5deg);
+            }
+        }
+        
+        @keyframes backgroundShift {
+            0%, 100% {
+                background-position: 0% 0%, 100% 0%, 0% 100%, 100% 100%;
+            }
+            25% {
+                background-position: 100% 0%, 0% 100%, 100% 100%, 0% 0%;
+            }
+            50% {
+                background-position: 100% 100%, 0% 0%, 100% 0%, 0% 100%;
+            }
+            75% {
+                background-position: 0% 100%, 100% 100%, 0% 0%, 100% 0%;
+            }
+        }
+        
+        /* Professional H1 Styling */
+        .hero h1 {
+            animation: fadeInUp 1s ease-out 0.1s both;
+            color: #ffffff;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+            position: relative;
+            font-size: 3.2rem;
+            font-weight: 700;
+            letter-spacing: -0.01em;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+        }
+        
+        .hero h1::after {
+            content: '';
+            position: absolute;
+            bottom: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 4px;
+            background: linear-gradient(90deg, #f97316 0%, #fbbf24 50%, #a7f3d0 100%);
+            border-radius: 2px;
+            filter: blur(0.5px);
+            animation: expandLine 1s ease-out 1.2s both;
+        }
+        
+        @keyframes expandLine {
+            from {
+                width: 0;
+            }
+            to {
+                width: 120px;
+            }
+        }
+        
+        
+        /* Trust Indicators Enhancement */
+        .trust-indicators {
+            margin-top: 2rem;
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            opacity: 0.9;
+            animation: fadeInUp 1s ease-out 0.9s both;
+        }
+        
+        .trust-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .trust-item:hover {
+            transform: translateY(-2px);
+        }
+        
+        .trust-item i {
+            font-size: 1rem;
+            color: #ffffff;
+        }
+        
+        .trust-item span {
+            font-weight: 500;
+            font-size: 0.85rem;
+            color: #e0e0e0;
+        }
+        
+        /* Unified Page Background */
+        body {
+            position: relative;
+        }
+        
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, 
+                rgba(0, 170, 217, 0.08) 0%, 
+                rgba(249, 115, 22, 0.08) 25%,
+                rgba(0, 170, 217, 0.08) 50%, 
+                rgba(249, 115, 22, 0.08) 75%,
+                rgba(0, 170, 217, 0.08) 100%);
+            z-index: -2;
+            pointer-events: none;
+        }
+        
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                radial-gradient(circle at 15% 15%, rgba(0, 170, 217, 0.06) 0%, transparent 60%),
+                radial-gradient(circle at 85% 25%, rgba(249, 115, 22, 0.06) 0%, transparent 60%),
+                radial-gradient(circle at 25% 85%, rgba(0, 170, 217, 0.06) 0%, transparent 60%),
+                radial-gradient(circle at 75% 75%, rgba(249, 115, 22, 0.06) 0%, transparent 60%);
+            animation: backgroundShift 30s ease-in-out infinite;
+            z-index: -1;
+            pointer-events: none;
+        }
+        
+        /* Ensure all content is above background */
+        .about-content, .why-choose-content, .services-content, .contact-content,
+        .about, .why-choose, .services, .contact-section {
+            position: relative;
+            z-index: 1;
         }
         
         .about-content {
             background: rgba(255, 255, 255, 0.08);
-            padding: 3rem;
+            padding: 1.5rem 3rem 3rem 3rem;
             border-radius: 20px;
             backdrop-filter: blur(15px);
             border: 1px solid rgba(255, 255, 255, 0.1);
             margin-top: 2rem;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .about-content::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transition: left 0.6s ease;
+        }
+        
+        .about-content:hover::before {
+            left: 100%;
+        }
+        
+        .about-content:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+            border-color: rgba(0, 170, 217, 0.3);
         }
         
         .about-content h2 {
             color: #ffffff;
             font-size: 2.2rem;
+            margin-top: 0;
             margin-bottom: 1.5rem;
-            text-align: center;
+            text-align: left;
         }
         
-        .about-content p {
-            color: #cccccc;
+        .about-highlights {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .highlight-item {
+            padding: 1.5rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .highlight-item:hover {
+            background: rgba(255, 255, 255, 0.08);
+            transform: translateY(-2px);
+            border-color: rgba(0, 170, 217, 0.3);
+        }
+        
+        .highlight-text h4 {
+            color: #ffffff;
             font-size: 1.1rem;
-            line-height: 1.7;
-            margin-bottom: 1.5rem;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
         }
         
-        .about-content p:last-child {
-            margin-bottom: 0;
+        .highlight-text p {
+            color: #cccccc;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            margin: 0;
+        }
+        
+        .accent-blue {
+            color: #00aad9;
+            font-weight: 600;
+        }
+        
+        .accent-orange {
+            color: #f97316;
+            font-weight: 600;
         }
         
         .why-choose {
@@ -100,9 +380,11 @@
         
         .why-choose-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.5rem;
             margin-top: 2rem;
+            position: relative;
+            z-index: 1;
         }
         
         .why-choose-item {
@@ -112,12 +394,41 @@
             backdrop-filter: blur(15px);
             border: 1px solid rgba(255, 255, 255, 0.1);
             text-align: center;
-            transition: all 0.3s ease;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .why-choose-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, 
+                rgba(0, 170, 217, 0.1) 0%, 
+                rgba(249, 115, 22, 0.1) 100%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .why-choose-item:hover::before {
+            opacity: 1;
         }
         
         .why-choose-item:hover {
-            background: rgba(255, 255, 255, 0.12);
-            transform: translateY(-5px);
+            transform: translateY(-8px) scale(1.02);
+            background: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+            border-color: rgba(0, 170, 217, 0.4);
+        }
+        
+        .why-choose-item .why-icon,
+        .why-choose-item h3,
+        .why-choose-item p {
+            position: relative;
+            z-index: 1;
         }
         
         .why-icon {
@@ -129,11 +440,22 @@
             align-items: center;
             justify-content: center;
             margin: 0 auto 1.5rem;
+            transition: all 0.3s ease;
+        }
+        
+        .why-choose-item:hover .why-icon {
+            transform: scale(1.1) rotate(5deg);
+            box-shadow: 0 10px 20px rgba(249, 115, 22, 0.3);
         }
         
         .why-icon i {
             font-size: 2rem;
             color: #ffffff;
+            transition: all 0.3s ease;
+        }
+        
+        .why-choose-item:hover .why-icon i {
+            transform: scale(1.1);
         }
         
         .why-choose-item h3 {
@@ -151,9 +473,11 @@
         
         .services-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2rem;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.5rem;
             margin-top: 2rem;
+            position: relative;
+            z-index: 1;
         }
         
         .service-card {
@@ -396,11 +720,51 @@
             display: block;
         }
         
+        /* Tablet Responsiveness */
+        @media (max-width: 1024px) {
+            .why-choose-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 0.5rem;
+            }
+            
+            .services-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 0.5rem;
+            }
+        }
+        
         /* Mobile Responsiveness */
         @media (max-width: 768px) {
             .hero-buttons {
                 flex-direction: column;
                 align-items: center;
+            }
+            
+            .hero-description {
+                font-size: 1.1rem;
+                text-align: center;
+            }
+            
+            .floating-element {
+                display: none; /* Hide floating elements on mobile for better performance */
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+                text-align: center;
+            }
+            
+            .trust-indicators {
+                gap: 1rem;
+                margin-top: 1.5rem;
+            }
+            
+            .trust-item {
+                padding: 0.4rem 0.8rem;
+            }
+            
+            .trust-item span {
+                font-size: 0.8rem;
             }
             
             .about-content {
@@ -411,14 +775,23 @@
                 font-size: 1.8rem;
             }
             
+            .about-highlights {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+            
+            .highlight-item {
+                padding: 1rem;
+            }
+            
             .why-choose-grid {
                 grid-template-columns: 1fr;
-                gap: 1.5rem;
+                gap: 0.4rem;
             }
             
             .services-grid {
                 grid-template-columns: 1fr;
-                gap: 1.5rem;
+                gap: 0.4rem;
             }
             
             .contact-section {
@@ -569,11 +942,35 @@
     <section class="hero">
         <div class="container">
             <div class="hero-content">
-                <h1>Wood Repair & Framing Services</h1>
-                <p class="hero-description">Structural repairs and custom framing for all your <strong>construction needs</strong> with expert craftsmanship in <strong>Fresno County</strong> and <strong>Kings County</strong>.</p>
+                <h1>Professional Wood Repair & Framing</h1>
+                <p class="hero-description">
+                    <strong>Structural Repairs</strong> | <strong>Custom Framing</strong><br>
+                    Licensed <strong>Class B General Contractor</strong> serving <strong>Visalia</strong>, <strong>Tulare</strong>, and <strong>Hanford</strong> since 2012. 
+                    Expert craftsmanship for all your construction needs with precision and structural integrity.
+                </p>
                 <div class="hero-buttons">
                     <a href="#contact" class="btn btn-primary cta-button">Get Free Quote</a>
                     <a href="tel:+15598707465" class="btn btn-secondary">Call (559) 870-7465</a>
+                </div>
+                
+                <!-- Professional Trust Indicators -->
+                <div class="trust-indicators">
+                    <div class="trust-item">
+                        <i class="fas fa-certificate"></i>
+                        <span>Licensed & Insured</span>
+                    </div>
+                    <div class="trust-item">
+                        <i class="fas fa-star"></i>
+                        <span>4.9/5 Rating</span>
+                    </div>
+                    <div class="trust-item">
+                        <i class="fas fa-calendar-alt"></i>
+                        <span>12+ Years Experience</span>
+                    </div>
+                    <div class="trust-item">
+                        <i class="fas fa-file-alt"></i>
+                        <span>Free Estimates</span>
+                    </div>
                 </div>
             </div>
         </div>

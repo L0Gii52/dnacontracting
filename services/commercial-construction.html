@@ -214,39 +214,9 @@
             border-color: rgba(255, 255, 255, 0.5);
         }
         
-        /* Gradient Overlay */
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(135deg, 
-                rgba(0, 170, 217, 0.1) 0%, 
-                rgba(249, 115, 22, 0.1) 50%, 
-                rgba(0, 170, 217, 0.1) 100%);
-            z-index: 1;
-        }
-        
         .hero-content {
             position: relative;
-            z-index: 2;
-        }
-        
-        /* Animated Background Pattern */
-        .hero::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-image: 
-                radial-gradient(circle at 25% 25%, rgba(0, 170, 217, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 75% 75%, rgba(249, 115, 22, 0.1) 0%, transparent 50%);
-            animation: backgroundShift 20s ease-in-out infinite;
-            z-index: 0;
+            z-index: 1;
         }
         
         /* Keyframe Animations */
@@ -263,10 +233,16 @@
         
         @keyframes backgroundShift {
             0%, 100% {
-                background-position: 0% 0%, 100% 100%;
+                background-position: 0% 0%, 100% 0%, 0% 100%, 100% 100%;
+            }
+            25% {
+                background-position: 100% 0%, 0% 100%, 100% 100%, 0% 0%;
             }
             50% {
-                background-position: 100% 100%, 0% 0%;
+                background-position: 100% 100%, 0% 0%, 100% 0%, 0% 100%;
+            }
+            75% {
+                background-position: 0% 100%, 100% 100%, 0% 0%, 100% 0%;
             }
         }
         
@@ -337,6 +313,52 @@
             font-weight: 500;
             font-size: 0.85rem;
             color: #e0e0e0;
+        }
+        
+        /* Unified Page Background */
+        body {
+            position: relative;
+        }
+        
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, 
+                rgba(0, 170, 217, 0.08) 0%, 
+                rgba(249, 115, 22, 0.08) 25%,
+                rgba(0, 170, 217, 0.08) 50%, 
+                rgba(249, 115, 22, 0.08) 75%,
+                rgba(0, 170, 217, 0.08) 100%);
+            z-index: -2;
+            pointer-events: none;
+        }
+        
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                radial-gradient(circle at 15% 15%, rgba(0, 170, 217, 0.06) 0%, transparent 60%),
+                radial-gradient(circle at 85% 25%, rgba(249, 115, 22, 0.06) 0%, transparent 60%),
+                radial-gradient(circle at 25% 85%, rgba(0, 170, 217, 0.06) 0%, transparent 60%),
+                radial-gradient(circle at 75% 75%, rgba(249, 115, 22, 0.06) 0%, transparent 60%);
+            animation: backgroundShift 30s ease-in-out infinite;
+            z-index: -1;
+            pointer-events: none;
+        }
+        
+        /* Ensure all content is above background */
+        .about-content, .why-choose-content, .services-content, .contact-content,
+        .about, .why-choose, .services, .contact-section {
+            position: relative;
+            z-index: 1;
         }
         
         .about-content {
@@ -765,11 +787,35 @@
     <section class="hero">
         <div class="container">
             <div class="hero-content">
-                <h1>Commercial Construction Services</h1>
-                <p class="hero-description">Full-service <strong>commercial construction</strong> including tenant improvements, office build-outs, and retail renovations throughout <strong>Visalia</strong>, <strong>Tulare</strong>, and <strong>Hanford</strong>.</p>
+                <h1>Professional Commercial Construction</h1>
+                <p class="hero-description">
+                    <strong>Tenant Improvements</strong> | <strong>Office Build-Outs</strong> | <strong>Retail Renovations</strong><br>
+                    Licensed <strong>Class B General Contractor</strong> serving <strong>Visalia</strong>, <strong>Tulare</strong>, and <strong>Hanford</strong> since 2012. 
+                    Full-service commercial construction with quality results on time and within budget.
+                </p>
                 <div class="hero-buttons">
                     <a href="#contact" class="btn btn-primary cta-button">Get Free Quote</a>
                     <a href="tel:+15598707465" class="btn btn-secondary">Call (559) 870-7465</a>
+                </div>
+                
+                <!-- Professional Trust Indicators -->
+                <div class="trust-indicators">
+                    <div class="trust-item">
+                        <i class="fas fa-certificate"></i>
+                        <span>Licensed & Insured</span>
+                    </div>
+                    <div class="trust-item">
+                        <i class="fas fa-star"></i>
+                        <span>4.9/5 Rating</span>
+                    </div>
+                    <div class="trust-item">
+                        <i class="fas fa-calendar-alt"></i>
+                        <span>12+ Years Experience</span>
+                    </div>
+                    <div class="trust-item">
+                        <i class="fas fa-file-alt"></i>
+                        <span>Free Estimates</span>
+                    </div>
                 </div>
             </div>
         </div>
