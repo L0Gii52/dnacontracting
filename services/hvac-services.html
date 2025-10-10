@@ -162,18 +162,181 @@
     <style>
         /* Service Page Specific Styles */
         .hero-description {
-            font-size: 1.2rem;
-            color: #cccccc;
-            margin-top: 1rem;
-            max-width: 700px;
-            line-height: 1.6;
+            font-size: 1.3rem;
+            color: #ffffff;
+            margin-top: 1.5rem;
+            max-width: 800px;
+            line-height: 1.7;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+            animation: fadeInUp 1s ease-out 0.3s both;
         }
         
         .hero-buttons {
             display: flex;
-            gap: 1rem;
-            margin-top: 2rem;
+            gap: 1.5rem;
+            margin-top: 2.5rem;
             flex-wrap: wrap;
+            animation: fadeInUp 1s ease-out 0.6s both;
+        }
+        
+        .hero-buttons .btn {
+            transform: translateY(0);
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .hero-buttons .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+        }
+        
+        .hero-buttons .btn-primary {
+            background: #ffffff;
+            color: #1a1a1a;
+            font-weight: 600;
+        }
+        
+        .hero-buttons .btn-primary:hover {
+            background: #f8f9fa;
+            color: #1a1a1a;
+        }
+        
+        .hero-buttons .btn-secondary {
+            background: transparent;
+            color: #ffffff;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            font-weight: 500;
+        }
+        
+        .hero-buttons .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.5);
+        }
+        
+        /* Gradient Overlay */
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, 
+                rgba(0, 170, 217, 0.1) 0%, 
+                rgba(249, 115, 22, 0.1) 50%, 
+                rgba(0, 170, 217, 0.1) 100%);
+            z-index: 1;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+        
+        /* Animated Background Pattern */
+        .hero::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                radial-gradient(circle at 25% 25%, rgba(0, 170, 217, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 75% 75%, rgba(249, 115, 22, 0.1) 0%, transparent 50%);
+            animation: backgroundShift 20s ease-in-out infinite;
+            z-index: 0;
+        }
+        
+        /* Keyframe Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes backgroundShift {
+            0%, 100% {
+                background-position: 0% 0%, 100% 100%;
+            }
+            50% {
+                background-position: 100% 100%, 0% 0%;
+            }
+        }
+        
+        /* Professional H1 Styling */
+        .hero h1 {
+            animation: fadeInUp 1s ease-out 0.1s both;
+            color: #ffffff;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+            position: relative;
+            font-size: 3.2rem;
+            font-weight: 700;
+            letter-spacing: -0.01em;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+        }
+        
+        .hero h1::after {
+            content: '';
+            position: absolute;
+            bottom: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 2px;
+            background: #ffffff;
+            border-radius: 1px;
+            animation: expandLine 1s ease-out 1.2s both;
+        }
+        
+        @keyframes expandLine {
+            from {
+                width: 0;
+            }
+            to {
+                width: 80px;
+            }
+        }
+        
+        /* Trust Indicators Enhancement */
+        .trust-indicators {
+            margin-top: 2rem;
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            opacity: 0.9;
+            animation: fadeInUp 1s ease-out 0.9s both;
+        }
+        
+        .trust-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .trust-item:hover {
+            transform: translateY(-2px);
+        }
+        
+        .trust-item i {
+            font-size: 1rem;
+            color: #ffffff;
+        }
+        
+        .trust-item span {
+            font-weight: 500;
+            font-size: 0.85rem;
+            color: #e0e0e0;
         }
         
         .about-content {
@@ -602,16 +765,39 @@
     <section class="hero">
         <div class="container">
             <div class="hero-content">
-                <h1>C-20 HVAC Services in Visalia, Tulare & Hanford | Licensed HVAC Contractor</h1>
+                <h1>Professional C-20 HVAC Services in Central Valley</h1>
                 <p class="hero-description">
-                    Professional <strong>C-20 HVAC services</strong> in <strong>Visalia</strong>, <strong>Tulare</strong>, and <strong>Hanford</strong>. 
-                    Our licensed HVAC contractors provide expert <strong>heating and air conditioning installation</strong>, 
-                    <strong>HVAC repair</strong>, <strong>maintenance</strong>, and <strong>replacement services</strong> throughout the Central Valley. 
-                    <strong>Serving the Central Valley since 2012</strong> with <strong>bonded and insured</strong> HVAC solutions.
+                    <strong>HVAC Installation</strong> | <strong>Repair & Maintenance</strong><br>
+                    Licensed <strong>C-20 HVAC Contractor</strong> serving <strong>Visalia</strong>, <strong>Tulare</strong>, and <strong>Hanford</strong> since 2012. 
+                    Expert heating and air conditioning services with guaranteed quality and professional installation.
                 </p>
                 <div class="hero-buttons">
-                    <a href="#contact" class="btn btn-primary cta-button">Get Free Quote</a>
-                    <a href="tel:+15598707465" class="btn btn-secondary">Call (559) 870-7465</a>
+                    <a href="#contact" class="btn btn-primary cta-button">
+                        <i class="fas fa-calculator"></i> Get Free Quote
+                    </a>
+                    <a href="tel:+15598707465" class="btn btn-secondary">
+                        <i class="fas fa-phone"></i> Call (559) 870-7465
+                    </a>
+                </div>
+                
+                <!-- Professional Trust Indicators -->
+                <div class="trust-indicators">
+                    <div class="trust-item">
+                        <i class="fas fa-certificate"></i>
+                        <span>C-20 Licensed</span>
+                    </div>
+                    <div class="trust-item">
+                        <i class="fas fa-star"></i>
+                        <span>4.9/5 Rating</span>
+                    </div>
+                    <div class="trust-item">
+                        <i class="fas fa-calendar-alt"></i>
+                        <span>12+ Years Experience</span>
+                    </div>
+                    <div class="trust-item">
+                        <i class="fas fa-handshake"></i>
+                        <span>Free Estimates</span>
+                    </div>
                 </div>
             </div>
         </div>

@@ -230,8 +230,9 @@ body {
     align-items: center;
     justify-content: center;
     text-align: center;
-    padding: 120px 20px 80px;
+    padding: 200px 20px 120px;
     position: relative;
+    overflow: hidden;
 }
 
 
@@ -248,6 +249,42 @@ body {
     line-height: 1.2;
     color: #ffffff;
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    position: relative;
+    animation: fadeInUp 1s ease-out;
+}
+
+.hero-title::after {
+    content: '';
+    position: absolute;
+    bottom: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 120px;
+    height: 4px;
+    background: linear-gradient(90deg, #f97316 0%, #fbbf24 50%, #a7f3d0 100%);
+    border-radius: 2px;
+    filter: blur(0.5px);
+    animation: expandLine 1s ease-out 1.2s both;
+}
+
+@keyframes expandLine {
+    from {
+        width: 0;
+    }
+    to {
+        width: 120px;
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .hero-description {
@@ -256,6 +293,7 @@ body {
     margin-bottom: 3rem;
     line-height: 1.7;
     text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+    animation: fadeInUp 1s ease-out 0.3s both;
 }
 
 .hero-buttons {
@@ -263,6 +301,7 @@ body {
     gap: 1rem;
     justify-content: center;
     flex-wrap: wrap;
+    animation: fadeInUp 1s ease-out 0.6s both;
 }
 
 /* Buttons */
@@ -1343,6 +1382,10 @@ section[id] {
     
     section {
         padding: 300px 0;
+    }
+    
+    .hero {
+        padding: 150px 15px 100px;
     }
     
     .hero-title {
