@@ -1,0 +1,12 @@
+{
+  "name": "dnacontracting-netlify-functions",
+  "version": "1.0.0",
+  "description": "Netlify functions for DNA Contracting contact form",
+  "main": "index.js",
+  "dependencies": {
+    "resend": "^3.2.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

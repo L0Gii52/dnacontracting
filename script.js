@@ -4,19 +4,24 @@ document.addEventListener('DOMContentLoaded', function() {
     const navLinks = document.querySelectorAll('.nav-link');
     navLinks.forEach(link => {
         link.addEventListener('click', function(e) {
-            e.preventDefault();
             const targetId = this.getAttribute('href');
-            const targetSection = document.querySelector(targetId);
             
-            if (targetSection) {
-                const headerHeight = document.querySelector('.header').offsetHeight;
-                const targetPosition = targetSection.offsetTop - headerHeight - 20;
+            // Only prevent default for hash links (same page navigation)
+            if (targetId.startsWith('#')) {
+                e.preventDefault();
+                const targetSection = document.querySelector(targetId);
                 
-                window.scrollTo({
-                    top: targetPosition,
-                    behavior: 'smooth'
-                });
+                if (targetSection) {
+                    const headerHeight = document.querySelector('.header').offsetHeight;
+                    const targetPosition = targetSection.offsetTop - headerHeight - 20;
+                    
+                    window.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth'
+                    });
+                }
             }
+            // For non-hash links (like index.html), allow normal navigation
         });
     });
 
@@ -96,31 +101,28 @@ document.addEventListener('DOMContentLoaded', function() {
                 email: formData.get('email'),
                 phone: formData.get('phone'),
                 projectType: formData.get('projectType'),
-                details: formData.get('details') || formData.get('message') || '',
+                details: formData.get('message') || '',
                 timestamp: new Date().toISOString(),
                 page: window.location.pathname
             };
             
-            // Send form data (using a simple mailto approach for now)
-            const subject = `New Contact Form Submission - ${data.projectType}`;
-            const body = `Name: ${data.name}
-Email: ${data.email}
-Phone: ${data.phone}
-Project Type: ${data.projectType}
-Message: ${data.details}
-Submitted from: ${data.page}
-Timestamp: ${data.timestamp}`;
-            
-            // Create mailto link
-            const mailtoLink = `mailto:vvalencia@dnacontracting-services.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-            
-            // Open email client
-            window.location.href = mailtoLink;
-            
-            // Show success message
-            setTimeout(() => {
+            // Send form data using Netlify function
+            fetch('/.netlify/functions/send-email', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: new URLSearchParams(formData)
+            })
+            .then(response => response.json())
+            .then(result => {
+                if (result.error) {
+                    throw new Error(result.error.message);
+                }
+                
+                // Show success message
                 hideFormLoading();
-                showFormSuccess('Thank you for your submission! Your email client should open with a pre-filled message. Please send the email to complete your request.');
+                showFormSuccess('Thank you for your submission! We\'ll get back to you within 24 hours.');
                 
                 // Track conversion events
                 if (typeof gtag !== 'undefined') {
@@ -140,7 +142,12 @@ Timestamp: ${data.timestamp}`;
                 
                 contactForm.reset();
                 clearAllErrors();
-            }, 1000);
+            })
+            .catch(error => {
+                console.error('Email sending failed:', error);
+                hideFormLoading();
+                showFormError('Sorry, there was an error sending your message. Please try again or call us directly at (559) 870-7465.');
+            });
         });
     }
 
@@ -458,7 +465,7 @@ Timestamp: ${data.timestamp}`;
                 });
             }
             
-            window.location.href = 'tel:+15598707485';
+            window.location.href = 'tel:+15598707465';
         });
     }
 
