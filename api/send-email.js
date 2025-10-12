@@ -48,7 +48,7 @@ export default async function handler(req, res) {
         // Send email using Resend
               const { data, error } = await resend.emails.send({
                   from: 'DNA Contracting <onboarding@resend.dev>',
-                  to: ['vvalencia@dnacontracting-services.com'],
+                  to: ['vvalencia@dnacontracting-services.com', 'your-email@example.com'],
                   subject: `New Contact Form Submission from ${name}`,
                   html: emailHtml,
                   replyTo: email
