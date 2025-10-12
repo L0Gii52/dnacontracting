@@ -46,13 +46,13 @@ export default async function handler(req, res) {
         `;
 
         // Send email using Resend
-        const { data, error } = await resend.emails.send({
-            from: 'DNA Contracting <noreply@dnacontracting.com>',
-            to: ['vvalencia@dnacontracting-services.com'],
-            subject: `New Contact Form Submission from ${name}`,
-            html: emailHtml,
-            replyTo: email
-        });
+              const { data, error } = await resend.emails.send({
+                  from: 'DNA Contracting <onboarding@resend.dev>',
+                  to: ['vvalencia@dnacontracting-services.com'],
+                  subject: `New Contact Form Submission from ${name}`,
+                  html: emailHtml,
+                  replyTo: email
+              });
 
         if (error) {
             console.error('Resend error:', error);
