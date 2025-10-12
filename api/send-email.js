@@ -1,31 +1,20 @@
-const { Resend } = require('resend');
+import { Resend } from 'resend';
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
-exports.handler = async (event, context) => {
+export default async function handler(req, res) {
     // Only allow POST requests
-    if (event.httpMethod !== 'POST') {
-        return {
-            statusCode: 405,
-            body: JSON.stringify({ error: 'Method not allowed' })
-        };
+    if (req.method !== 'POST') {
+        return res.status(405).json({ error: 'Method not allowed' });
     }
 
     try {
         // Parse form data
-        const formData = new URLSearchParams(event.body);
-        const name = formData.get('name');
-        const email = formData.get('email');
-        const phone = formData.get('phone');
-        const projectType = formData.get('projectType');
-        const message = formData.get('message');
+        const { name, email, phone, projectType, message } = req.body;
 
         // Validate required fields
         if (!name || !email || !phone || !projectType || !message) {
-            return {
-                statusCode: 400,
-                body: JSON.stringify({ error: 'Missing required fields' })
-            };
+            return res.status(400).json({ error: 'Missing required fields' });
         }
 
         // Create email content
@@ -56,7 +45,7 @@ exports.handler = async (event, context) => {
             </div>
         `;
 
-        // Send email using Resend Node.js SDK
+        // Send email using Resend
         const { data, error } = await resend.emails.send({
             from: 'DNA Contracting <noreply@dnacontracting.com>',
             to: ['vvalencia@dnacontracting-services.com'],
@@ -67,38 +56,24 @@ exports.handler = async (event, context) => {
 
         if (error) {
             console.error('Resend error:', error);
-            return {
-                statusCode: 500,
-                body: JSON.stringify({ 
-                    error: 'Failed to send email',
-                    details: error.message 
-                })
-            };
+            return res.status(500).json({ 
+                error: 'Failed to send email',
+                details: error.message 
+            });
         }
 
-        return {
-            statusCode: 200,
-            headers: {
-                'Access-Control-Allow-Origin': '*',
-                'Access-Control-Allow-Headers': 'Content-Type',
-                'Access-Control-Allow-Methods': 'POST, OPTIONS'
-            },
-            body: JSON.stringify({ 
-                success: true, 
-                message: 'Email sent successfully',
-                emailId: data.id 
-            })
-        };
+        return res.status(200).json({ 
+            success: true, 
+            message: 'Email sent successfully',
+            emailId: data.id 
+        });
 
     } catch (error) {
         console.error('Function error:', error);
         
-        return {
-            statusCode: 500,
-            body: JSON.stringify({ 
-                error: 'Internal server error',
-                details: error.message 
-            })
-        };
+        return res.status(500).json({ 
+            error: 'Internal server error',
+            details: error.message 
+        });
     }
-};
+}

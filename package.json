@@ -1,7 +1,7 @@
 {
-  "name": "dnacontracting-netlify-functions",
+  "name": "dnacontracting-vercel-functions",
   "version": "1.0.0",
-  "description": "Netlify functions for DNA Contracting contact form",
+  "description": "Vercel functions for DNA Contracting contact form",
   "main": "index.js",
   "dependencies": {
     "resend": "^3.2.0"

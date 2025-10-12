@@ -106,13 +106,19 @@ document.addEventListener('DOMContentLoaded', function() {
                 page: window.location.pathname
             };
             
-            // Send form data using Netlify function
-            fetch('/.netlify/functions/send-email', {
+            // Send form data using Vercel API
+            fetch('/api/send-email', {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded',
+                    'Content-Type': 'application/json',
                 },
-                body: new URLSearchParams(formData)
+                body: JSON.stringify({
+                    name: formData.get('name'),
+                    email: formData.get('email'),
+                    phone: formData.get('phone'),
+                    projectType: formData.get('projectType'),
+                    message: formData.get('message')
+                })
             })
             .then(response => response.json())
             .then(result => {
