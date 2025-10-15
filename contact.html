@@ -64,6 +64,7 @@
             grid-template-columns: 1fr 1fr;
             gap: 4rem;
             margin-top: 3rem;
+            margin-bottom: 100px;
             align-items: stretch;
         }
         
@@ -72,14 +73,9 @@
         }
         
         .contact-info {
-            background: rgba(255, 255, 255, 0.08);
             padding: 2.5rem;
-            border-radius: 20px;
-            backdrop-filter: blur(15px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
         }
         
         .contact-info h2 {
@@ -106,7 +102,7 @@
         
         .contact-method {
             display: flex;
-            align-items: flex-start;
+            align-items: center;
             gap: 1.5rem;
             padding: 1.5rem;
             background: rgba(255, 255, 255, 0.05);
@@ -114,6 +110,7 @@
             border: 1px solid rgba(255, 255, 255, 0.1);
             transition: all 0.3s ease;
             min-width: 0;
+            min-height: 80px;
         }
         
         .contact-method:hover {
@@ -503,22 +500,17 @@
                     <h2>Request a Free Quote</h2>
                     <p class="form-intro">Fill out the form below and we'll get back to you with a detailed estimate for your project.</p>
                     
-                    <form class="contact-form" id="contactForm" name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field">
-                        <!-- Hidden honeypot field for spam protection -->
-                        <div style="display: none;">
-                            <label>Don't fill this out if you're human: <input name="bot-field"></label>
-                        </div>
-                        
+                    <form class="contact-form" id="contactForm" role="form" aria-label="Contact form for project quote">
                         <div class="form-row">
                             <div class="form-group">
                                 <label for="name">Full Name *</label>
-                                <input type="text" id="name" name="name" required aria-describedby="name-error" placeholder="Enter your full name">
+                                <input type="text" id="name" name="name" required aria-describedby="name-error" placeholder="FULL NAME">
                                 <div class="error-message" id="name-error" role="alert"></div>
                             </div>
                             
                             <div class="form-group">
                                 <label for="email">Email Address *</label>
-                                <input type="email" id="email" name="email" required aria-describedby="email-error" placeholder="Enter your email address">
+                                <input type="email" id="email" name="email" required aria-describedby="email-error" placeholder="EMAIL">
                                 <div class="error-message" id="email-error" role="alert"></div>
                             </div>
                         </div>
@@ -526,14 +518,14 @@
                         <div class="form-row">
                             <div class="form-group">
                                 <label for="phone">Phone Number *</label>
-                                <input type="tel" id="phone" name="phone" required aria-describedby="phone-error" placeholder="Enter your phone number">
+                                <input type="tel" id="phone" name="phone" required aria-describedby="phone-error" placeholder="PHONE">
                                 <div class="error-message" id="phone-error" role="alert"></div>
                             </div>
                             
                             <div class="form-group">
                                 <label for="projectType">Project Type *</label>
                                 <select id="projectType" name="projectType" required aria-describedby="projectType-error">
-                                    <option value="">Select Project Type</option>
+                                    <option value="">SELECT PROJECT</option>
                                     <option value="residential-remodeling">Residential Remodeling</option>
                                     <option value="commercial-construction">Commercial Construction</option>
                                     <option value="kitchen-renovation">Kitchen Renovation</option>
@@ -549,7 +541,7 @@
                         
                         <div class="form-group">
                             <label for="message">Project Details *</label>
-                            <textarea id="message" name="message" rows="5" placeholder="Tell us about your project, timeline, and any specific requirements..." required aria-describedby="message-error"></textarea>
+                            <textarea id="message" name="message" rows="5" placeholder="TELL US ABOUT..." required aria-describedby="message-error"></textarea>
                             <div class="error-message" id="message-error" role="alert"></div>
                         </div>
                         
@@ -650,48 +642,6 @@
 
     <script src="script.js"></script>
     <script>
-        // Hamburger menu functionality
-        document.addEventListener('DOMContentLoaded', function() {
-            const hamburger = document.getElementById('hamburger');
-            const navLinks = document.getElementById('nav-links');
-            
-            if (hamburger && navLinks) {
-                hamburger.addEventListener('click', function() {
-                    hamburger.classList.toggle('active');
-                    navLinks.classList.toggle('active');
-                });
-            }
-            
-            // Close mobile menu when clicking on a link
-            const navLinkElements = document.querySelectorAll('.nav-link');
-            navLinkElements.forEach(link => {
-                link.addEventListener('click', function() {
-                    hamburger.classList.remove('active');
-                    navLinks.classList.remove('active');
-                });
-            });
-            
-            // Dropdown functionality
-            const dropdownToggles = document.querySelectorAll('.dropdown-toggle');
-            dropdownToggles.forEach(toggle => {
-                toggle.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    const dropdown = this.nextElementSibling;
-                    dropdown.classList.toggle('active');
-                });
-            });
-            
-            // Close dropdown when clicking outside
-            document.addEventListener('click', function(e) {
-                if (!e.target.closest('.nav-dropdown')) {
-                    const dropdowns = document.querySelectorAll('.dropdown-menu');
-                    dropdowns.forEach(dropdown => {
-                        dropdown.classList.remove('active');
-                    });
-                }
-            });
-        });
-        
         // Navigation function for cross-page links
         function navigateToSection(url) {
             console.log('Navigating to:', url);

@@ -589,9 +589,14 @@ document.addEventListener('DOMContentLoaded', function() {
     const mobileNavLinks = document.getElementById('nav-links');
     
     if (hamburger && mobileNavLinks) {
-        hamburger.addEventListener('click', function() {
+        console.log('Hamburger menu elements found');
+        hamburger.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            console.log('Hamburger clicked');
             hamburger.classList.toggle('active');
             mobileNavLinks.classList.toggle('active');
+            console.log('Nav links active class:', mobileNavLinks.classList.contains('active'));
         });
         
         // Close menu when clicking outside
@@ -618,6 +623,37 @@ document.addEventListener('DOMContentLoaded', function() {
                 mobileNavLinks.classList.remove('active');
             });
         });
+        
+        // Services dropdown functionality for mobile
+        const dropdownToggle = document.querySelector('.dropdown-toggle');
+        const navDropdown = document.querySelector('.nav-dropdown');
+        const chevronIcon = document.querySelector('.dropdown-toggle i');
+        
+        if (dropdownToggle && navDropdown) {
+            console.log('Dropdown elements found');
+            
+            // Handle click on the entire dropdown toggle
+            dropdownToggle.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                console.log('Dropdown clicked');
+                navDropdown.classList.toggle('active');
+                console.log('Dropdown active class:', navDropdown.classList.contains('active'));
+            });
+            
+            // Also handle click on the chevron icon specifically
+            if (chevronIcon) {
+                chevronIcon.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    console.log('Chevron clicked');
+                    navDropdown.classList.toggle('active');
+                    console.log('Dropdown active class:', navDropdown.classList.contains('active'));
+                });
+            }
+        } else {
+            console.log('Dropdown elements not found');
+        }
     }
     
     // Dropdown menu functionality
