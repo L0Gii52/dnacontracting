@@ -65,7 +65,7 @@
             gap: 4rem;
             margin-top: 3rem;
             margin-bottom: 100px;
-            align-items: stretch;
+            align-items: start;
         }
         
         .contact {
@@ -76,18 +76,19 @@
             padding: 2.5rem;
             display: flex;
             flex-direction: column;
+            align-items: flex-start;
         }
         
         .contact-info h2 {
             color: #ffffff;
             font-size: 1.75rem;
             margin-bottom: 1rem;
-            text-align: center;
+            text-align: left;
         }
         
         .contact-intro {
             color: #cccccc;
-            text-align: center;
+            text-align: left;
             margin-bottom: 2rem;
             font-size: 1rem;
             line-height: 1.5;
@@ -185,19 +186,19 @@
             padding: 2.5rem;
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
+            align-items: flex-start;
         }
         
         .contact-form-container h2 {
             color: #ffffff;
             font-size: 1.75rem;
             margin-bottom: 1rem;
-            text-align: center;
+            text-align: left;
         }
         
         .form-intro {
             color: #cccccc;
-            text-align: center;
+            text-align: left;
             margin-bottom: 2rem;
             font-size: 1rem;
             line-height: 1.5;
@@ -295,6 +296,13 @@
             color: #9ca3af;
             font-size: 1.1rem;
             border: 2px dashed rgba(255, 255, 255, 0.2);
+        }
+        
+        /* Desktop map height - double size */
+        @media (min-width: 769px) {
+            .map-container iframe {
+                height: 800px !important;
+            }
         }
         
         /* Mobile Responsiveness */
