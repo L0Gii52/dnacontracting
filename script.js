@@ -624,57 +624,10 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
         
-        // Services dropdown functionality for mobile
-        const dropdownToggle = document.querySelector('.dropdown-toggle');
-        const navDropdown = document.querySelector('.nav-dropdown');
-        const chevronIcon = document.querySelector('.dropdown-toggle i');
-        
-        if (dropdownToggle && navDropdown) {
-            console.log('Dropdown elements found');
-            
-            // Handle click on the entire dropdown toggle
-            dropdownToggle.addEventListener('click', function(e) {
-                e.preventDefault();
-                e.stopPropagation();
-                console.log('Dropdown clicked');
-                navDropdown.classList.toggle('active');
-                console.log('Dropdown active class:', navDropdown.classList.contains('active'));
-            });
-            
-            // Also handle click on the chevron icon specifically
-            if (chevronIcon) {
-                chevronIcon.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    console.log('Chevron clicked');
-                    navDropdown.classList.toggle('active');
-                    console.log('Dropdown active class:', navDropdown.classList.contains('active'));
-                });
-            }
-        } else {
-            console.log('Dropdown elements not found');
-        }
+        // Services dropdown functionality - REMOVED
     }
     
-    // Dropdown menu functionality
-    const dropdownToggles = document.querySelectorAll('.dropdown-toggle');
-    dropdownToggles.forEach(toggle => {
-        toggle.addEventListener('click', function(e) {
-            e.preventDefault();
-            const dropdown = this.closest('.nav-dropdown');
-            const menu = dropdown.querySelector('.dropdown-menu');
-            
-            // Close other dropdowns
-            document.querySelectorAll('.nav-dropdown').forEach(otherDropdown => {
-                if (otherDropdown !== dropdown) {
-                    otherDropdown.classList.remove('active');
-                }
-            });
-            
-            // Toggle current dropdown
-            dropdown.classList.toggle('active');
-        });
-    });
+    // Dropdown menu functionality - REMOVED
     
     // Handle smooth scrolling to sections when coming from other pages
     function handleSectionScrolling() {
@@ -706,4 +659,359 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Also run when hash changes (for single-page navigation)
     window.addEventListener('hashchange', handleSectionScrolling);
+    
+    // Service Modal functionality
+    const serviceModal = document.getElementById('serviceModal');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalContent = document.getElementById('modalContent');
+    const modalCloseButtons = document.querySelectorAll('.modal-close');
+
+    // Service content data
+    const serviceData = {
+        'residential-remodeling': {
+            title: 'Residential & Commercial Remodeling',
+            content: `
+                <h3>Complete Home & Commercial Transformation</h3>
+                <p>Transform your living and working spaces with our comprehensive remodeling services throughout <strong>Visalia</strong>, <strong>Tulare</strong>, and <strong>Hanford</strong>.</p>
+                
+                <h3>Residential Services</h3>
+                <ul>
+                    <li><strong>Kitchen Remodeling:</strong> Custom cabinets, countertops, and modern appliances</li>
+                    <li><strong>Bathroom Renovations:</strong> Complete bathroom makeovers with luxury fixtures</li>
+                    <li><strong>Room Additions:</strong> Expand your living space with seamless additions</li>
+                    <li><strong>Interior Renovations:</strong> Flooring, painting, and interior design updates</li>
+                    <li><strong>Exterior Improvements:</strong> Siding, roofing, and outdoor living spaces</li>
+                </ul>
+                
+                <h3>Commercial Services</h3>
+                <ul>
+                    <li><strong>Office Build-outs:</strong> Professional office space design and construction</li>
+                    <li><strong>Retail Renovations:</strong> Storefront and interior commercial updates</li>
+                    <li><strong>Restaurant Construction:</strong> Complete restaurant build-outs and renovations</li>
+                    <li><strong>Warehouse Improvements:</strong> Industrial space modifications and upgrades</li>
+                    <li><strong>Tenant Improvements:</strong> Custom commercial space solutions</li>
+                </ul>
+                
+                <p>Our licensed <strong>General (B)</strong> contractor team ensures all work meets local building codes and exceeds quality standards. We work closely with you from design to completion, delivering exceptional results that enhance your property value.</p>
+            `
+        },
+        'kitchen-bathroom': {
+            title: 'Kitchen & Bathroom Renovations',
+            content: `
+                <h3>Transform Your Most Important Spaces</h3>
+                <p>Create stunning, functional kitchens and bathrooms that reflect your style and meet your family's needs throughout the <strong>Central Valley</strong>.</p>
+                
+                <h3>Kitchen Renovation Services</h3>
+                <ul>
+                    <li><strong>Custom Cabinetry:</strong> Built-to-order cabinets with premium materials</li>
+                    <li><strong>Countertop Installation:</strong> Granite, quartz, marble, and butcher block options</li>
+                    <li><strong>Appliance Integration:</strong> Professional installation of modern appliances</li>
+                    <li><strong>Electrical Updates:</strong> Code-compliant electrical work for new appliances</li>
+                    <li><strong>Plumbing Services:</strong> Updated plumbing for sinks, dishwashers, and garbage disposals</li>
+                    <li><strong>Lighting Design:</strong> Task, ambient, and accent lighting solutions</li>
+                </ul>
+                
+                <h3>Bathroom Renovation Services</h3>
+                <ul>
+                    <li><strong>Luxury Fixtures:</strong> High-end toilets, sinks, and faucets</li>
+                    <li><strong>Shower & Tub Installation:</strong> Walk-in showers, soaking tubs, and steam rooms</li>
+                    <li><strong>Tile Work:</strong> Custom tile design for floors, walls, and backsplashes</li>
+                    <li><strong>Vanity Installation:</strong> Custom vanities with storage solutions</li>
+                    <li><strong>Ventilation Systems:</strong> Proper ventilation for moisture control</li>
+                    <li><strong>Accessibility Features:</strong> ADA-compliant bathroom modifications</li>
+                </ul>
+                
+                <p>Our experienced team handles every aspect of your renovation, from initial design consultation to final cleanup. We ensure minimal disruption to your daily routine while delivering exceptional craftsmanship.</p>
+            `
+        },
+        'wood-repair': {
+            title: 'Wood Repair & Framing',
+            content: `
+                <h3>Expert Structural Repairs & Custom Framing</h3>
+                <p>Professional wood repair and framing services for all your construction needs with expert craftsmanship in <strong>Fresno County</strong> and <strong>Kings County</strong>.</p>
+                
+                <h3>Wood Repair Services</h3>
+                <ul>
+                    <li><strong>Structural Repairs:</strong> Foundation repairs, beam replacement, and load-bearing fixes</li>
+                    <li><strong>Water Damage Restoration:</strong> Repair and replace water-damaged wood structures</li>
+                    <li><strong>Termite Damage Repair:</strong> Restore structural integrity after termite damage</li>
+                    <li><strong>Deck & Patio Repairs:</strong> Fix loose boards, railings, and structural issues</li>
+                    <li><strong>Window & Door Frames:</strong> Repair and replace damaged door and window frames</li>
+                    <li><strong>Custom Millwork:</strong> Matching existing trim, molding, and architectural details</li>
+                </ul>
+                
+                <h3>Framing Services</h3>
+                <ul>
+                    <li><strong>New Construction Framing:</strong> Complete structural framing for new builds</li>
+                    <li><strong>Room Additions:</strong> Framing for home and commercial additions</li>
+                    <li><strong>Wall Modifications:</strong> Remove, add, or modify interior walls</li>
+                    <li><strong>Roof Framing:</strong> Custom roof structures and modifications</li>
+                    <li><strong>Commercial Framing:</strong> Office partitions and commercial space framing</li>
+                    <li><strong>Permit Assistance:</strong> Help with building permits and inspections</li>
+                </ul>
+                
+                <p>Our skilled craftsmen use premium materials and proven techniques to ensure your wood structures are safe, durable, and built to last. We work with both residential and commercial clients to meet all framing and repair needs.</p>
+            `
+        },
+        'ev-charger': {
+            title: 'EV Charger Installation',
+            content: `
+                <h3>Professional EV Charging Station Installation</h3>
+                <p>Professional <strong>EV charging station installation</strong> for your home or business with SCE program benefits. Licensed <strong>electrical contractor</strong> services throughout the Central Valley.</p>
+                
+                <h3>Residential EV Charger Services</h3>
+                <ul>
+                    <li><strong>Level 2 Home Chargers:</strong> Fast, efficient home charging solutions</li>
+                    <li><strong>Smart Charger Installation:</strong> WiFi-enabled chargers with mobile app control</li>
+                    <li><strong>Electrical Panel Upgrades:</strong> Ensure your panel can handle EV charging load</li>
+                    <li><strong>Dedicated Circuits:</strong> Proper electrical circuits for safe charging</li>
+                    <li><strong>Permit & Inspection:</strong> Handle all permits and electrical inspections</li>
+                    <li><strong>SCE Rebate Programs:</strong> Help you qualify for Southern California Edison rebates</li>
+                </ul>
+                
+                <h3>Commercial EV Charger Services</h3>
+                <ul>
+                    <li><strong>Multi-Station Installations:</strong> Multiple charging stations for businesses</li>
+                    <li><strong>Public Charging Stations:</strong> Commercial-grade charging infrastructure</li>
+                    <li><strong>Load Management:</strong> Smart systems to manage electrical load</li>
+                    <li><strong>Payment Systems:</strong> Integrated payment and access control</li>
+                    <li><strong>Maintenance Programs:</strong> Ongoing service and maintenance plans</li>
+                    <li><strong>Compliance:</strong> Meet all local and state regulations</li>
+                </ul>
+                
+                <h3>Why Choose DNA Contracting?</h3>
+                <ul>
+                    <li><strong>Licensed C-10 Electrical Contractor</strong> with specialized EV training</li>
+                    <li><strong>SCE Authorized Installer</strong> for rebate programs</li>
+                    <li><strong>Code Compliance:</strong> All installations meet current electrical codes</li>
+                    <li><strong>Warranty Coverage:</strong> Comprehensive warranty on all work</li>
+                    <li><strong>Fast Installation:</strong> Most installations completed in one day</li>
+                </ul>
+                
+                <p>Make the switch to electric vehicles seamless with our professional installation services. We'll help you choose the right charger for your needs and ensure a safe, efficient installation.</p>
+            `
+        },
+        'building-electrification': {
+            title: 'Building Electrification',
+            content: `
+                <h3>Upgrade to Efficient Electrical Systems</h3>
+                <p>Upgrade to efficient electrical systems through authorized SGIP programs and modern technology. <strong>Electrical contractor</strong> expertise for residential and commercial properties.</p>
+                
+                <h3>Electrification Services</h3>
+                <ul>
+                    <li><strong>Electric Vehicle Infrastructure:</strong> EV charging stations and electrical upgrades</li>
+                    <li><strong>Heat Pump Installation:</strong> Electric heat pumps for heating and cooling</li>
+                    <li><strong>Electric Water Heaters:</strong> High-efficiency electric water heating systems</li>
+                    <li><strong>Solar Integration:</strong> Electrical systems for solar panel integration</li>
+                    <li><strong>Battery Storage Systems:</strong> Home and commercial battery storage solutions</li>
+                    <li><strong>Smart Home Integration:</strong> Connected electrical systems and automation</li>
+                </ul>
+                
+                <h3>SGIP Program Benefits</h3>
+                <ul>
+                    <li><strong>Rebate Programs:</strong> Access to Self-Generation Incentive Program rebates</li>
+                    <li><strong>Energy Storage Incentives:</strong> Financial incentives for battery storage</li>
+                    <li><strong>EV Charging Rebates:</strong> Additional rebates for EV infrastructure</li>
+                    <li><strong>Utility Partnerships:</strong> Work with local utilities for maximum savings</li>
+                    <li><strong>Application Assistance:</strong> Help with rebate applications and paperwork</li>
+                </ul>
+                
+                <h3>Why Electrify Your Building?</h3>
+                <ul>
+                    <li><strong>Energy Efficiency:</strong> Reduce energy costs with modern electric systems</li>
+                    <li><strong>Environmental Benefits:</strong> Lower carbon footprint and cleaner energy</li>
+                    <li><strong>Future-Proofing:</strong> Prepare for the electric future</li>
+                    <li><strong>Increased Property Value:</strong> Modern electrical systems add value</li>
+                    <li><strong>Reliability:</strong> More reliable than gas-powered systems</li>
+                </ul>
+                
+                <p>Our licensed electrical team specializes in building electrification projects, helping you take advantage of rebate programs while upgrading to efficient, modern electrical systems.</p>
+            `
+        },
+        'electrical-panel': {
+            title: 'Electrical Panel Upgrades',
+            content: `
+                <h3>Safe, Code-Compliant Electrical Panel Upgrades</h3>
+                <p>Safe, code-compliant <strong>electrical panel upgrades</strong> for future power needs and expansion. Licensed <strong>C-10 electrical contractor</strong> serving the Central Valley.</p>
+                
+                <h3>Panel Upgrade Services</h3>
+                <ul>
+                    <li><strong>Service Upgrades:</strong> Upgrade from 100A to 200A or 400A service</li>
+                    <li><strong>Panel Replacement:</strong> Replace outdated or damaged electrical panels</li>
+                    <li><strong>Circuit Breaker Installation:</strong> Install new circuit breakers and safety devices</li>
+                    <li><strong>Ground Fault Protection:</strong> Install GFCI and AFCI protection</li>
+                    <li><strong>Sub-Panel Installation:</strong> Add sub-panels for additional circuits</li>
+                    <li><strong>Emergency Power:</strong> Install transfer switches for generators</li>
+                </ul>
+                
+                <h3>When to Upgrade Your Panel</h3>
+                <ul>
+                    <li><strong>Frequent Breaker Trips:</strong> Circuit breakers constantly tripping</li>
+                    <li><strong>Adding New Appliances:</strong> EV chargers, hot tubs, or major appliances</li>
+                    <li><strong>Home Additions:</strong> Expanding your living space</li>
+                    <li><strong>Outdated Equipment:</strong> Old fuse boxes or outdated panels</li>
+                    <li><strong>Safety Concerns:</strong> Burning smells or electrical issues</li>
+                    <li><strong>Code Compliance:</strong> Meeting current electrical codes</li>
+                </ul>
+                
+                <h3>Our Process</h3>
+                <ul>
+                    <li><strong>Free Assessment:</strong> Evaluate your current electrical system</li>
+                    <li><strong>Permit Application:</strong> Handle all necessary permits and inspections</li>
+                    <li><strong>Professional Installation:</strong> Licensed electricians perform the work</li>
+                    <li><strong>Code Compliance:</strong> Ensure all work meets current codes</li>
+                    <li><strong>Testing & Inspection:</strong> Thorough testing and utility inspection</li>
+                    <li><strong>Warranty Coverage:</strong> Comprehensive warranty on all work</li>
+                </ul>
+                
+                <p>Don't let an outdated electrical panel limit your home's potential. Our experienced team will safely upgrade your electrical system to meet your current and future needs.</p>
+            `
+        },
+        'hvac': {
+            title: 'C-20 HVAC Services',
+            content: `
+                <h3>Professional HVAC Installation, Repair & Maintenance</h3>
+                <p>Professional <strong>HVAC installation</strong>, repair, and maintenance services. Licensed <strong>C-20 HVAC contractor</strong> serving the <strong>Central Valley</strong> with expert heating and cooling solutions.</p>
+                
+                <h3>HVAC Installation Services</h3>
+                <ul>
+                    <li><strong>Central Air Systems:</strong> Complete AC installation and replacement</li>
+                    <li><strong>Heating Systems:</strong> Furnace installation and heat pump systems</li>
+                    <li><strong>Ductwork Installation:</strong> New ductwork design and installation</li>
+                    <li><strong>Zoned Systems:</strong> Multi-zone temperature control systems</li>
+                    <li><strong>Energy Efficient Units:</strong> High-efficiency HVAC systems</li>
+                    <li><strong>Commercial HVAC:</strong> Large-scale commercial installations</li>
+                </ul>
+                
+                <h3>HVAC Repair Services</h3>
+                <ul>
+                    <li><strong>Emergency Repairs:</strong> 24/7 emergency HVAC repair service</li>
+                    <li><strong>AC Repair:</strong> Air conditioning troubleshooting and repair</li>
+                    <li><strong>Heating Repair:</strong> Furnace and heat pump repair services</li>
+                    <li><strong>Ductwork Repair:</strong> Fix leaks and improve airflow</li>
+                    <li><strong>Thermostat Issues:</strong> Smart thermostat installation and repair</li>
+                    <li><strong>Refrigerant Services:</strong> Leak detection and refrigerant recharge</li>
+                </ul>
+                
+                <h3>Maintenance Programs</h3>
+                <ul>
+                    <li><strong>Seasonal Tune-ups:</strong> Spring and fall maintenance checks</li>
+                    <li><strong>Filter Replacement:</strong> Regular air filter changes</li>
+                    <li><strong>System Cleaning:</strong> Duct cleaning and system sanitization</li>
+                    <li><strong>Performance Testing:</strong> Efficiency and safety testing</li>
+                    <li><strong>Preventive Maintenance:</strong> Catch issues before they become problems</li>
+                    <li><strong>Priority Service:</strong> Priority scheduling for maintenance customers</li>
+                </ul>
+                
+                <h3>Why Choose Our HVAC Services?</h3>
+                <ul>
+                    <li><strong>Licensed C-20 Contractor:</strong> Fully licensed and insured HVAC contractor</li>
+                    <li><strong>Certified Technicians:</strong> NATE-certified HVAC technicians</li>
+                    <li><strong>Quality Brands:</strong> Work with top HVAC manufacturers</li>
+                    <li><strong>Energy Efficiency:</strong> Focus on energy-efficient solutions</li>
+                    <li><strong>Warranty Coverage:</strong> Comprehensive warranty on all work</li>
+                    <li><strong>Local Expertise:</strong> Deep knowledge of Central Valley climate needs</li>
+                </ul>
+                
+                <p>Keep your home comfortable year-round with our professional HVAC services. From installation to maintenance, we ensure your heating and cooling systems operate efficiently and reliably.</p>
+            `
+        },
+        'commercial-construction': {
+            title: 'Commercial Construction',
+            content: `
+                <h3>Full-Service Commercial Construction</h3>
+                <p>Full-service <strong>commercial construction</strong> including tenant improvements, office build-outs, and retail renovations throughout <strong>Visalia</strong>, <strong>Tulare</strong>, and <strong>Hanford</strong>.</p>
+                
+                <h3>Commercial Construction Services</h3>
+                <ul>
+                    <li><strong>Office Build-outs:</strong> Complete office space design and construction</li>
+                    <li><strong>Retail Renovations:</strong> Storefront and interior commercial updates</li>
+                    <li><strong>Restaurant Construction:</strong> Full-service restaurant build-outs</li>
+                    <li><strong>Warehouse Improvements:</strong> Industrial space modifications</li>
+                    <li><strong>Medical Facilities:</strong> Healthcare facility construction and renovation</li>
+                    <li><strong>Educational Buildings:</strong> School and university construction projects</li>
+                </ul>
+                
+                <h3>Tenant Improvement Services</h3>
+                <ul>
+                    <li><strong>Space Planning:</strong> Optimize layout for maximum efficiency</li>
+                    <li><strong>Interior Design:</strong> Professional interior design services</li>
+                    <li><strong>Electrical Work:</strong> Commercial electrical installations and upgrades</li>
+                    <li><strong>Plumbing Services:</strong> Commercial plumbing and restroom installations</li>
+                    <li><strong>HVAC Systems:</strong> Commercial heating and cooling solutions</li>
+                    <li><strong>Flooring Installation:</strong> Commercial-grade flooring options</li>
+                </ul>
+                
+                <h3>Project Management</h3>
+                <ul>
+                    <li><strong>Pre-Construction:</strong> Planning, design, and permit assistance</li>
+                    <li><strong>Project Coordination:</strong> Manage all trades and subcontractors</li>
+                    <li><strong>Timeline Management:</strong> Keep projects on schedule and on budget</li>
+                    <li><strong>Quality Control:</strong> Ensure all work meets commercial standards</li>
+                    <li><strong>Code Compliance:</strong> Meet all local building codes and regulations</li>
+                    <li><strong>Final Inspections:</strong> Coordinate with building inspectors</li>
+                </ul>
+                
+                <h3>Why Choose DNA Contracting?</h3>
+                <ul>
+                    <li><strong>Licensed General (B) Contractor:</strong> Fully licensed for commercial work</li>
+                    <li><strong>Experienced Team:</strong> Skilled craftsmen and project managers</li>
+                    <li><strong>Local Knowledge:</strong> Deep understanding of local codes and requirements</li>
+                    <li><strong>Quality Materials:</strong> Use only commercial-grade materials</li>
+                    <li><strong>Timely Completion:</strong> Meet deadlines without compromising quality</li>
+                    <li><strong>Warranty Coverage:</strong> Comprehensive warranty on all commercial work</li>
+                </ul>
+                
+                <p>Transform your commercial space with our professional construction services. We handle everything from initial design to final walkthrough, ensuring your project exceeds expectations.</p>
+            `
+        }
+    };
+
+    // Add event listeners to service learn more buttons
+    const serviceButtons = document.querySelectorAll('.service-learn-more');
+    
+    serviceButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const serviceType = this.getAttribute('data-service');
+            openServiceModal(serviceType);
+        });
+    });
+    
+    // Add event listeners to close buttons
+    modalCloseButtons.forEach(button => {
+        button.addEventListener('click', closeServiceModal);
+    });
+    
+    // Close modal when clicking overlay
+    if (serviceModal) {
+        serviceModal.addEventListener('click', function(e) {
+            if (e.target === serviceModal || e.target.classList.contains('modal-overlay')) {
+                closeServiceModal();
+            }
+        });
+    }
+    
+    // Close modal with Escape key
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && serviceModal && serviceModal.classList.contains('active')) {
+            closeServiceModal();
+        }
+    });
+
+    function openServiceModal(serviceType) {
+        const service = serviceData[serviceType];
+        if (service && modalTitle && modalContent && serviceModal) {
+            modalTitle.textContent = service.title;
+            modalContent.innerHTML = service.content;
+            serviceModal.classList.add('active');
+            document.body.style.overflow = 'hidden'; // Prevent background scrolling
+        }
+    }
+
+    function closeServiceModal() {
+        if (serviceModal) {
+            serviceModal.classList.remove('active');
+            document.body.style.overflow = ''; // Restore scrolling
+        }
+    }
 });
