@@ -1680,9 +1680,7 @@ section[id] {
     padding: 20px 30px 30px 30px;
     border-top: 1px solid rgba(255, 255, 255, 0.1);
     display: flex;
-    gap: 15px;
     justify-content: center;
-    flex-wrap: wrap;
 }
 
 .modal-footer .btn {
@@ -1721,7 +1719,6 @@ section[id] {
     
     .modal-footer {
         padding: 15px 20px 20px 20px;
-        flex-direction: column;
     }
     
     .modal-footer .btn {
