@@ -1,3 +1,0 @@
-# Redirect contact/ to contact.html
-RewriteEngine On
-RewriteRule ^contact/?$ /contact.html [R=301,L]
