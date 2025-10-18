@@ -141,35 +141,19 @@ body::after {
 .logo-link {
     text-decoration: none;
     display: block;
-}
-
-.logo {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0;
     transition: transform 0.3s ease;
 }
 
-.logo-link:hover .logo {
+.logo-link:hover {
     transform: scale(1.05);
 }
 
-.logo-dna {
-    color: #00aad9;
-    font-weight: 800;
-    font-size: 32px;
-    line-height: 1;
-    letter-spacing: 2px;
-}
-
-.logo-contracting {
-    color: white;
-    font-weight: 600;
-    font-size: 14px;
-    line-height: 1;
-    letter-spacing: 3px;
-    margin-top: -2px;
+.logo-image {
+    height: 100px;
+    width: auto;
+    max-width: 380px;
+    object-fit: contain;
+    transition: transform 0.3s ease;
 }
 
 .nav-links {
@@ -1916,6 +1900,12 @@ section[id] {
         padding: 0 16px;
     }
     
+    /* Small mobile logo styling */
+    .logo-image {
+        height: 88px !important;
+        max-width: 280px !important;
+    }
+    
     .hero-title {
         font-size: 1.75rem;
         line-height: 1.2;
@@ -2022,6 +2012,19 @@ html {
         width: 100% !important;
         max-width: 100vw !important;
         position: relative !important;
+    }
+    
+    /* Mobile logo styling */
+    .logo-image {
+        height: 100px !important;
+        max-width: 320px !important;
+    }
+    
+    /* Center logo on mobile */
+    .nav-brand {
+        display: flex !important;
+        justify-content: center !important;
+        width: 100% !important;
     }
     
     /* Mobile-specific box-sizing */

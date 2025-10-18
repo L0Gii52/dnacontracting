@@ -624,6 +624,40 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
         
+        // Auto-close mobile navbar when scrolling down
+        let lastScrollTop = 0;
+        let isScrollingDown = false;
+        let scrollTimeout;
+        
+        window.addEventListener('scroll', function() {
+            // Only apply this behavior on mobile devices
+            if (window.innerWidth <= 768) {
+                const currentScrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                
+                // Determine scroll direction
+                if (currentScrollTop > lastScrollTop && currentScrollTop > 100) {
+                    // Scrolling down and past 100px
+                    isScrollingDown = true;
+                } else {
+                    // Scrolling up
+                    isScrollingDown = false;
+                }
+                
+                // Clear existing timeout
+                clearTimeout(scrollTimeout);
+                
+                // If scrolling down and navbar is open, close it after a short delay
+                if (isScrollingDown && mobileNavLinks.classList.contains('active')) {
+                    scrollTimeout = setTimeout(function() {
+                        hamburger.classList.remove('active');
+                        mobileNavLinks.classList.remove('active');
+                    }, 150); // Small delay to prevent flickering
+                }
+                
+                lastScrollTop = currentScrollTop;
+            }
+        });
+        
         // Services dropdown functionality - REMOVED
     }
     
